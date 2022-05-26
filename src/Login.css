@@ -1,0 +1,72 @@
+.loginbtn{
+    border-color: #FF4646;
+}
+.loginbtn:hover{
+    background-color: #FF4646;
+    color: white;
+}
+
+.intro {
+    background: url("undraw_festivities_tvvj.svg")no-repeat center center fixed;
+    -webkit-background-size: 100% 100%;
+    -moz-background-size: 100% 100%;
+    -o-background-size: 100% 100%;
+    background-size: 100% 100%;
+}
+
+.app{
+    width: 100% !important;
+    height: 80vh !important;
+}
+
+.form-wrapper{
+    background-color: #0000002d; 
+    border-radius: 30px !important;
+}
+.cfcprimary{
+    border-radius: 30px;
+}
+
+.loggin-wrapper{
+    background: #e5e6e3; border-radius: 10px;
+}
+.loginbtn{
+    border-color: #FF4646 !important;
+    border-radius: 5px !important;
+    color:#FF4646 !important;
+   
+
+
+}
+.loginbtn:hover{
+    background-color: #FF4646 !important;
+    border-radius: 5px;
+    color: white !important;
+}
+
+.crdlg .nav-link{
+    color: #FF4646 !important;
+}
+
+.crdlg .nav-link.active, .crdlg .nav-link:hover{
+    background-color: #FF4646;
+    color: white !important;
+}
+
+input, select, textarea{
+    color: #000 !important;
+}
+
+.right-button{
+    float: right;
+}
+
+.rounded-form{
+    border-radius: 30px;
+}
+
+
+.nav-button-wrapper{
+    width: 100% !important;
+    border: 0px;
+}

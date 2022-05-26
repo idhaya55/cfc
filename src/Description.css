@@ -1,0 +1,9 @@
+
+.first-wrapper{
+    width: 100% !important;
+    height: 80vh !important;
+}
+.first-wrapper-wrapper{
+    background-color: #0000002d; 
+    border-radius: 30px !important;
+}

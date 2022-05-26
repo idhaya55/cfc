@@ -1,0 +1,54 @@
+.eventcard {         
+    margin-left: 15%;      
+    margin-right: 18%;
+    width: auto;
+}
+#leftbar{
+    position:fixed;
+
+}
+
+.filtercard{
+    margin: 20px;
+}
+.star{
+    max-width: 24px;
+    cursor: pointer;
+}
+.outline-danger{
+    color: #FF4646;
+
+
+}
+.outline-danger:hover{
+    color:white;
+    background-color: 2px solid #FF4646;    
+}
+
+/* @media (max-width: 1400px){
+    #rightbar{
+        margin-left: 20%;
+    }
+} */
+@media (max-width: 500px){
+    #rightbar{
+        margin-left:0px;
+        width:auto;
+    }
+    #row1{
+        justify-content: center;
+        align-items: center;
+    }
+
+}
+#pons{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.padding-less{
+    padding: 0px !important;
+    overflow: hidden;
+}

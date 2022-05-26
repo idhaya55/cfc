@@ -1,0 +1,248 @@
+/*GrayScale*/
+.column img {
+    -webkit-filter: grayscale(100%);
+    filter: grayscale(100%);
+    -webkit-transition: .3s ease-in-out;
+    transition: .3s ease-in-out;
+  }
+  .column:hover img {
+    -webkit-filter: grayscale(0);
+    filter: grayscale(0);
+  }
+
+  .card {
+    border-radius: 30px;
+}
+.card_img {
+    width: 120px;
+    height: 120px;
+    overflow: hidden;
+    border-radius: 100%;
+    margin: 10px auto 0;
+    
+}
+.card_img img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.postcss{
+    background-color: #0000002d; 
+    border-radius: 20px !important;
+}
+
+.postOtherJob{
+    background-color: #0000002d;
+    border-radius: 20px !important;
+}
+
+.boldHeading{
+    font:bold;
+}
+
+.loginbtn{
+    border-color: #FF4646;
+}
+.loginbtn:hover{
+    background-color: #FF4646;
+    color: white;
+}
+
+.intro {
+    background: url("undraw_festivities_tvvj.svg")no-repeat center center fixed;
+    -webkit-background-size: 100% 100%;
+    -moz-background-size: 100% 100%;
+    -o-background-size: 100% 100%;
+    background-size: 100% 100%;
+}
+
+.app{
+    width: 100% !important;
+    height: 80vh !important;
+}
+
+.form-wrapper{
+    background-color: #0000002d; 
+    border-radius: 30px !important;
+}
+.cfcprimary{
+    border-radius: 30px;
+}
+
+.loggin-wrapper{
+    background: #e5e6e3; border-radius: 10px;
+}
+.loginbtn{
+    border-color: #FF4646 !important;
+    border-radius: 5px !important;
+    color:#FF4646 !important;
+   
+
+
+}
+.loginbtn:hover{
+    background-color: #FF4646 !important;
+    border-radius: 5px;
+    color: white !important;
+}
+
+.crdlg .nav-link{
+    color: #FF4646 !important;
+}
+
+.crdlg .nav-link.active, .crdlg .nav-link:hover{
+    background-color: #FF4646;
+    color: white !important;
+}
+
+input, select, textarea{
+    color: #000 !important;
+}
+
+.right-button{
+    float: right;
+}
+
+.rounded-form{
+    border-radius: 30px;
+}
+
+
+.nav-button-wrapper{
+    width: 100% !important;
+    border: 0px;
+}
+
+
+.home-wrapper{
+    width: 100% !important;
+    height: 100% !important;
+}
+
+
+.first-wrapper{
+    width: 100% !important;
+    height: 80vh !important;
+}
+.first-wrapper-wrapper{
+    background-color: #0000002d; 
+    border-radius: 30px !important;
+}
+
+.applied-wrapper{
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.right-div{
+    float:right
+}
+
+.bid-rounded{
+    border-radius: 30px !important;
+}
+
+.bid-widther{
+    width: 70% !important;
+}
+.bid-fonnt{
+    font-family: 'Raleway';
+    
+}
+
+.cfcprimary, .nav-link:hover{
+    color: #FF4646 !important;
+    font-weight : bold !important;
+    border-radius: 30px;
+   
+}
+
+.btn-outline-danger{
+    color: #FF4646 !important;
+    border-style: solid !important;
+    border-color: #FF4646 !important;
+    
+}
+
+.btn-danger,.btn-danger:hover, .btn-outline-danger:hover, .cfcprimary-outline{
+    background: #FF4646 !important;
+    color: #ffffff !important;
+}
+.area{
+    border: 1px solid;
+    border-radius: 15px;
+    padding: 10px;
+    box-shadow: 0px 5px 10px 0px #888888;
+}
+.area:hover{
+    box-shadow: 0px 10px 10px 0px #888888;
+}
+
+.space-wrapper{
+    margin-bottom: 10px;
+}
+
+.update-wrapper{
+    margin-left: 15px;
+    margin-right: 15px;
+}
+.semi-rounded{
+    border-radius: 10px !important;
+}
+
+.eventcard {   
+    border: 1px solid;
+    border-radius: 60px;
+    padding: 10px;
+    box-shadow: 0px 5px 10px 0px #888888;
+
+}
+
+.eventcard:hover{
+    box-shadow: 0px 10px 10px 0px #888888;
+}
+
+.eventcard:hover h5,h2{
+    color: rgb(255, 0, 0);
+}
+
+.card_img {
+    width: 120px;
+    height: 120px;
+    overflow: hidden;
+    border-radius: 100%;
+    margin: 10px auto 0;
+    
+}
+.card_img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.card_info {
+    padding-bottom: 20px;
+}
+a {
+  text-decoration: none;
+  color: rgb(255, 0, 0);
+}
+a:hover{
+  color: black;
+}
+.card{
+    border-radius: 30px;
+    box-shadow: 0px 5px 10px 0px #888888;
+}
+
+.centered-align{
+    text-align: center;
+}
+
+.all-right{
+    float: right;
+}
+
+.flexed{
+    display: flex
+}
