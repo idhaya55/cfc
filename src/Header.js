@@ -1,8 +1,13 @@
 
+import { useState } from 'react';
 import './styles.css';
 function Header(params) {
-     
+      const [curentHeader, SetCurentHeader] = useState('Home')
 
+      function handleClick(e){
+        SetCurentHeader('Home');
+        params.setlogin('home')
+      }
     return(
         <header>
     <nav className="navbar navbar-expand-lg navbar-light bg-white " >
@@ -13,18 +18,18 @@ function Header(params) {
           <span className="navbar-toggler-icon"></span>
         </button>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul className="navbar-nav me-auto mb-2 half-width">
+          <ul className="navbar-nav me-auto half-width">
             <li className="nav-item">
-              <a className="nav-link active cfcactive" href="#/" onClick={e => params.setlogin('home')}>Home</a>
+              <a className="nav-link active" style={curentHeader === 'Home' ? { color: '#FF4646',fontWeight: 'bold',borderBottom: '3px #FF4646 solid'}: {}} href="#/" onClick={e => handleClick(e)} >Home</a>
             </li>
             <li className="nav-item">
-              <a className="nav-link " href="#/">Have Work</a>
+              <a className="nav-link " href="#/" style={curentHeader === 'Have' ? { color: '#FF4646',fontWeight: 'bold',borderBottom: '3px #FF4646 solid'}: {}}  onClick={e => SetCurentHeader('Have')}>Have Work</a>
             </li>
             <li className="nav-item">
-              <a className="nav-link " href="#/">Need Work</a>
+              <a className="nav-link " href="#/" style={curentHeader === 'Need' ? { color: '#FF4646',fontWeight: 'bold',borderBottom: '3px #FF4646 solid'}: {}} onClick={e => SetCurentHeader('Need')}>Need Work</a>
             </li>
             <li className="nav-item">
-              <a className="nav-link " href="#/">Contact Us</a>
+              <a className="nav-link " href="#/" style={curentHeader === 'Contact' ? { color: '#FF4646',fontWeight: 'bold',borderBottom: '3px #FF4646 solid'}: {}} onClick={e => SetCurentHeader('Contact')}>Contact Us</a>
             </li>
 
           </ul>
