@@ -24,18 +24,18 @@ function Register(props) {
     axios.post('https://cfc-restapi.herokuapp.com/register',obj, {
       headers: headers
     }).then((response) => {
-      console.log(response)
       props.setmail(value.email)
+      alert("Account Created");
     },(err)=> {
-
+      alert("E-mail Not Exsists");
     })
   }
   else{
-    console.log('Enter correct password')
+    alert("Both Password Has to be Same");
   }
 }
 else{
-  console.log('Try Again')
+  alert("Enter Details Above to Create Account");
 }
   }
     return(

@@ -19,9 +19,13 @@ function LoginChild(props) {
       if(mail.password === response.data.password){
         props.setmail(mail.email)
       }
+      else{
+        alert("Incorrect Password");
+      }
       
       // 
     },(err)=> {
+      alert("Incorrect E-mail");
        console.log(err)
     })
     }
