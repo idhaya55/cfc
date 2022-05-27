@@ -26,14 +26,14 @@
 .cfcprimary{
     border-radius: 30px;
 }
-
+/* background: #e5e6e3; */
 .loggin-wrapper{
-    background: #e5e6e3; border-radius: 10px;
+     border-radius: 10px;
 }
 .loginbtn{
     border-color: #FF4646 !important;
     border-radius: 5px !important;
-    color:#FF4646 !important;
+    color:#FF4646 ;
    
 
 
@@ -41,7 +41,7 @@
 .loginbtn:hover{
     background-color: #FF4646 !important;
     border-radius: 5px;
-    color: white !important;
+    color: white;
 }
 
 .crdlg .nav-link{

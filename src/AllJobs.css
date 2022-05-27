@@ -52,3 +52,9 @@
     padding: 0px !important;
     overflow: hidden;
 }
+
+.flexed-item{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}

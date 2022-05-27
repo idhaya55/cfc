@@ -1,8 +1,11 @@
 
 
 import { useState } from 'react';
-import './AllJobs.css'
+import { FaMapMarkerAlt } from "react-icons/fa";
+import './AllJobs.css';
+
 function AllJobsChild(params) {
+
         const [project, setProject] = useState(params.obj)
         let obj = params.obj;
 
@@ -19,7 +22,7 @@ function AllJobsChild(params) {
                 <div className="card-body">
                     <h5 className="card-title">{project.desc}</h5>
                     <p className="card-text">{project.desc_long}</p>
-                        <p>Budget {project.payment} <span className='all-right'><i className="fas fa-map-marker-alt right-div"></i>{project.location}</span></p>
+                        <p>Budget {project.payment} <span className='all-right'><FaMapMarkerAlt  className="fas flexed-item" /><span>{project.location}</span></span></p>
                         
                     <button type="button" className="btn btn-danger rounded-pill" onClick={e => jobHandler('view')}>view job</button>
                     <button type="button" className="btn btn-danger rounded-pill right-div"onClick={ e=> jobHandler('bid')}>Bid job</button>

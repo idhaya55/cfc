@@ -11,6 +11,7 @@ import ongoingproject from './ongoingproject.png';
 import Ongoing from './Ongoing';
 import Applied from './applied';
 import Completed from './Completed';
+import { FaArrowRight } from "react-icons/fa";
 import Description from './Description';
 function Status(props) {
   
@@ -43,7 +44,7 @@ function Status(props) {
                 </div>
                 <div className="content">
                     <div className="d-flex align-items-center justify-content-center mt-3 pb-3">
-                        <div className="btn btn-outline-danger"onClick={e => handleClick('applied')}>Applied Project<span className="fas fa-arrow-right"></span>
+                        <div className="btn btn-outline-danger"onClick={e => handleClick('applied')}>Applied Project<FaArrowRight />
                         </div>
                     </div>
                 </div>
@@ -58,7 +59,7 @@ function Status(props) {
                 <div className="content">
 
                     <div className="d-flex align-items-center justify-content-center mt-3 pb-3">
-                        <div className="btn btn-outline-danger" onClick={e => handleClick('ongoing')}>Ongoing Project<span className="fas fa-arrow-right"></span>
+                        <div className="btn btn-outline-danger" onClick={e => handleClick('ongoing')}>Ongoing Project<FaArrowRight />
                         </div>
                     </div>
                 </div>
@@ -71,7 +72,7 @@ function Status(props) {
                 </div>
                 <div className="content">
                     <div className="d-flex align-items-center justify-content-center mt-3 pb-3">
-                        <div className="btn btn-outline-danger" onClick={e => handleClick('completed')}> Completed Project<span className="fas fa-arrow-right"></span>
+                        <div className="btn btn-outline-danger" onClick={e => handleClick('completed')}> Completed Project<FaArrowRight />
                         </div>
                     </div>
                 </div>

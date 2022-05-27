@@ -60,7 +60,7 @@ console.log(props,delwin)
       <div className=" container justify-content-center " >     
           <div className="row justify-content-evenly ">
               <div className=" col-lg-4 mb-4  ">
-                  <div className="card "><br/>
+                  <div className="card rounded-form"><br/>
                       <img className="card-img-top  card_img" src={profile.profile_picture}   alt="User_Image"  /><br/>
                         <div className="card-body text-center card_info ">
                           <h5 className="card-title cfcprimary">{profile.name || ''} </h5>
@@ -71,7 +71,7 @@ console.log(props,delwin)
                   </div>
               </div>
               <div className=" col-lg-6 mb-4 ">
-                  <div className="card table-responsive-md">
+                  <div className="card table-responsive-md rounded-form">
                       <div className="card-body ">
                         <table className="table table-borderless  " >
                           <tr>

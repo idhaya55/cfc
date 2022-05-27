@@ -1,6 +1,7 @@
 import axios from 'axios';
 import  { useState } from 'react';
 import './styles.css';
+import { FaGoogle, FaFacebook } from "react-icons/fa";
 function Register(props) {
   const headers = {
     'accept': 'application/json',
@@ -44,7 +45,7 @@ else{
            
                           <div className="form-outline mb-4">
                           <label className="form-label cfcprimary">Name</label>
-                          <input type="text" id="name" className="form-control rounded-form" placeholder="Enter your Name here" value={value.name} onChange={(e) => {setValue({name:e.target.value, email:value.password, password: value.password, password_2: value.number, number: value.number, type: value.type})}} required/>
+                          <input type="text" id="name" className="form-control rounded-form" placeholder="Enter your Name here" value={value.name} onChange={(e) => {setValue({name:e.target.value, email:value.email, password: value.password, password_2: value.password_2, number: value.number, type: value.type})}} required/>
                         </div>
                         <div className="form-outline mb-4">
                           <label className="form-label cfcprimary">Email</label>
@@ -56,16 +57,16 @@ else{
                         </div>
                         <div className="form-outline form-white mb-4">
                           <label className="form-label cfcprimary" htmlFor="typePasswordX">Confirm Password</label>
-                          <input type="password" className="form-control rounded-form"  id="cpass" placeholder="Enter your Password Again" value={value.password_2} onChange={(e) => {setValue({name:value.name, email:value.password, password: value.password, password_2: e.target.value, number: value.number, type: value.type})}}  required/>
+                          <input type="password" className="form-control rounded-form"  id="cpass" placeholder="Enter your Password Again" value={value.password_2} onChange={(e) => {setValue({name:value.name, email:value.email, password: value.password, password_2: e.target.value, number: value.number, type: value.type})}}  required/>
                         </div>
                         <div className="form-outline mb-4">
                           <label className="form-label cfcprimary">Mobile Number</label>
-                          <input type="Number" id="mobile" className="form-control rounded-form" placeholder="Enter your Mobile Number here" value={value.number} onChange={(e) => {setValue({name:value.name, email:value.password, password: value.password, password_2: value.password_2, number: e.target.value, type: value.type})}}  required/>
+                          <input type="Number" id="mobile" className="form-control rounded-form" placeholder="Enter your Mobile Number here" value={value.number} onChange={(e) => {setValue({name:value.name, email:value.email, password: value.password, password_2: value.password_2, number: e.target.value, type: value.type})}}  required/>
                         </div>
                    
                         <div className="form-outline mb-4">
                         <label className="form-label cfcprimary">Type</label>
-                         <select className="form-select mb-3 rounded-form" id="type" aria-label=".form-select example" defaultValue={'empty'} value={value.type} onChange={(e) => {setValue({name:value.name, email:value.password, password: value.password, password_2: value.password_2, number: value.number, type: e.target.value})}}>
+                         <select className="form-select mb-3 rounded-form" id="type" aria-label=".form-select example" defaultValue={'empty'} value={value.type} onChange={(e) => {setValue({name:value.name, email:value.email, password: value.password, password_2: value.password_2, number: value.number, type: e.target.value})}}>
                            <option value="empty">Who you are?</option>
                            <option value="freelancer">Freelancer</option>
                            <option value="client">Client</option>
@@ -81,10 +82,10 @@ else{
                                
                              <div className="d-flex justify-content-center text-center">
                              <a className="btn btn-outline-danger m-1"  href="#/" id="gsignup" role="button">
-                               <i className="fab fa-google"></i></a>
+                             <FaGoogle /></a>
                                   
                              <a className="btn  btn-outline-danger m-1"  href="#/"  role="button">
-                               <i className="fab fa-facebook"></i></a>
+                             <FaFacebook /></a>
                              </div></form>
                       </div>
     )

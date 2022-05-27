@@ -1,5 +1,7 @@
 import axios from 'axios';
 import  { useState } from 'react';
+import { FaGoogle, FaFacebook } from "react-icons/fa";
+import './styles.css'
 
 function LoginChild(props) {
   const headers = {
@@ -10,12 +12,10 @@ function LoginChild(props) {
   const[mail, setemail] = useState({email:'',password:''}); 
   
   function login(event){
-    console.log(mail)
     if(mail.email && mail.password){
       axios.get(`https://cfc-restapi.herokuapp.com/login/${mail.email}`, {
       headers: headers
     }).then((response) => {
-      console.log(response.data)
       if(mail.password === response.data.password){
         props.setmail(mail.email)
       }
@@ -52,10 +52,10 @@ function LoginChild(props) {
                                      
          
                                    <a className="btn btn-outline-danger m-1" id="glogin" href="#/" role="button">
-                                     <i className="fab fa-google"></i></a>
+                                     <FaGoogle /></a>
                                         
                                    <a className="btn  btn-outline-danger m-1" href="#/" role="button">
-                                     <i className="fab fa-facebook"></i></a>
+                                    <FaFacebook /></a>
                                  </div>
                                  </form>
                           </div>

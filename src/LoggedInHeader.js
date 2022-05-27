@@ -26,7 +26,7 @@ function LoggedInHeader(params) {
         <nav className="navbar navbar-expand-lg navbar-light fixed-top bg-white shadow p-3 mb-5 rounded">
             <div className="container">
 
-                <a href="#/" className="navbar-brand">Chennai Freelancers Club</a>
+                <a href="#/" className="navbar-brand" onClick={e => params.setlogin('home')}>Chennai Freelancers Club</a>
     
         
                 <button className="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -39,7 +39,7 @@ function LoggedInHeader(params) {
                         <a className="nav-link "  href="#/" onClick={e => params.setlogin('home')}>Home</a>
                     </li>
                     <li className="nav-item">
-                      <a href="#/" className="nav-link cfcprimary" onClick={e => params.setlogin('status')}>My Status</a>
+                      <a href="#/" className="nav-link " onClick={e => params.setlogin('status')}>My Status</a>
                     </li>
                     <li className="nav-item">
                       <a href="#/" className="nav-link" onClick={e => params.setlogin('profile')}>Profile</a>
@@ -71,7 +71,7 @@ function LoggedInHeader(params) {
                         
                       </li> */}
                     <li className="nav-item">
-                      <a href="#/" className="nav-link">Contact Us</a>
+                      <a href="#/" className="nav-link" onClick={e => params.setlogin('home')}>Contact Us</a>
                     </li>
                     <li className="nav-item">
                       <a href="#/" className="btn btn-outline-danger rounded-pill" onClick={e => params.setlogin('logout')} id="logout">Logout</a>

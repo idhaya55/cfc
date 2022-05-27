@@ -11,13 +11,15 @@ import Freelancer from './Freelancer.jpg';
 import client from './Client.jpg';
 function Home() {
   return (
+
       <div className='home-wrapper'>
+          <br /><br />
 <div className="container ">
 
 <div className="card box">
 
     <div className="row">
-      <div className="col ">
+      <div className="col right-padding">
         <h2 className="card-title cfc-red">Chennai Freelancers Club <br/>
           Find Chennai's most wanted talents</h2>
           <div className="card-body">
@@ -93,14 +95,15 @@ function Home() {
     <br/>
 
   
-    <div className="container ">
-  <div className="card box">
+    <div className="container">
+  <div className="card box right-padding">
     <h3 className="cfc-red"> What to do ?</h3>
     <div className="card-body">
       <img src={landingwhattodo} className="card-img-top img-fluid"  alt="Landing..." />
     </div>
   </div>
   </div>
+  <br /><br />
   </div>
   );
   }

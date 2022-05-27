@@ -28,6 +28,7 @@ function Login(props) {
       obj = <Register setmail={e => goBack(e)}/>
   }
   let str = ''
+  let [currentSelect, setCurrentSelect] = useState('login')
   let [mail, setEmail] = useState(str);
   let [login, setLogin] = useState(false);
   let [template, setTemplate] = useState(obj);
@@ -59,9 +60,11 @@ function Login(props) {
 
   function handleClick(params) {
     if(params === 'login') {
+      setCurrentSelect('login')
       setTemplate( <LoginChild setmail={e => goBack(e)}/> );
      }
       else{
+        setCurrentSelect('signup')
         setTemplate(<Register setmail={e => goBack(e)}/>);
       }
     
@@ -71,17 +74,17 @@ function Login(props) {
     return (
       <div>
     <div  className="bg-image shadow-2-strong intro" >
-                <div className="mask d-flex align-items-center" >
+                <div className="mask d-flex align-items-center pad" >
                   <div className="container">
                     <div className="row justify-content-center">
-                      <div className="col-xl-5 col-md-8 loggin-wrapper crdlg"  >
+                      <div className="col-xl-5 col-md-8 loggin-wrapper crdlg card-glass"  >
                         
                         <ul className="nav nav-pills nav-justified mb-2 pills-tab tablist"   >
                           <li className="nav-item" role="presentation">
-                            <button className="btn btn-outline-danger px-5 rounded-pill loginbtn pills-login-tab nav-button-wrapper"   type="button" role="tab"  onClick={e => handleClick('login')} >Login</button>
+                            <button className="btn  px-5 rounded-pill loginbtn pills-login-tab nav-button-wrapper" style={currentSelect === 'login' ? { backgroundColor: '#FF4646',color:'white'} : { }}  type="button" role="tab"  onClick={e => handleClick('login')} >Login</button>
                           </li>&nbsp;&nbsp;&nbsp;&nbsp;
                           <li className="nav-item" role="presentation">
-                            <button className="btn btn-outline-danger px-5 rounded-pill loginbtn pills-signup-tab nav-button-wrapper"  type="button" role="tab" onClick={e => handleClick('signup')}>Sign Up</button>
+                            <button className="btn  px-5 rounded-pill loginbtn pills-signup-tab nav-button-wrapper" style={currentSelect === 'signup' ? { backgroundColor: '#FF4646',color:'white'} : { }}   type="button" role="tab" onClick={e => handleClick('signup')}>Sign Up</button>
                           </li>
                         </ul>
                         <div className="tab-content" id="pills-tabContent">

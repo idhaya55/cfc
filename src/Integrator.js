@@ -37,7 +37,12 @@ function loginHandler(value){
         setCurrentPage(<UpdateProfile email={email} setValue={e => gotoJobsScreen(e)}/>)
     }
     else if(value === 'home'){
+        if(inHome === true){
         setCurrentPage(<AllJobs setTemplate={e => templateChanger(e)}/> )
+        }
+        else{
+            setCurrentPage(<Home /> )
+        }
     }
     else{
         setCurrentPage(<Login type={'signup'}   setValue={e => changeEmail(e)} />)
