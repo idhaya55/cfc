@@ -30,6 +30,9 @@ function Applied(params) {
     headers: headers
   }).then((response) => {
        let filterWork = response.data.filter((res) => res['proposals'].some((real) => user['applied_proposal'].includes(real)));
+       filterWork = filterWork.filter((res) => !user['ongoing_proposal'].includes(res['_id']));
+       filterWork = filterWork.filter((res) => !user['finished_proposal'].includes(res['_id']));
+       console.log(filterWork,'filteredwork')
        setProject(filterWork)
   })
 }
@@ -44,14 +47,15 @@ else{
 }).then((response) => {
   let arrayObj = [];
   if(response.data.length > 0){
-    console.log(response.data,'active')
     let leap = response.data.filter((reap) => reap['client_id'] === user['_id']);
     
     arrayObj = leap.map(function(reap) {
       let  obj = { heading:reap.title,desc:reap.long_description,cost:reap.amount,bid:'',status:'Ongoing', work_id:reap['_id']}
       return obj
   })
-    setProject(arrayObj);
+  let filterWork = arrayObj.filter((res) => !user['ongoing_work'].includes(res['_id']));
+  filterWork = filterWork.filter((res) => !user['finished_work'].includes(res['_id']));
+    setProject(filterWork);
 }
 else{
 
