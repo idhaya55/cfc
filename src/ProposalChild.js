@@ -94,12 +94,13 @@ function ProposalChild(params) {
               <div className="col-md-6"> 
                   <h6 className="card-title cfcprimary" > Bid amount : <span className="fw-bold text-dark">{project.bid_amount}</span> </h6>  
               </div>
-              <div className="col-md-3  d-flex justify-content-between align-items-center">
-                      <button type="button" className="btn btn-outline-danger rounded-pill " onClick={e =>  proposalAccepted(e)}>Accept</button>
-                      </div>
+              
             </div>   
         </div>
     </div>
+    <div className="col-md-3  d-flex justify-content-between align-items-center">
+                      <button type="button" className="btn btn-outline-danger rounded-pill " onClick={e =>  proposalAccepted(e)}>Accept</button>
+                      </div>
 </div>
 </div>
     )

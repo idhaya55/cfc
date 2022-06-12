@@ -49,9 +49,21 @@ function Proposal(props) {
                 }
                 else{
                     return(
-                        <div className='applied-wrapper'>
-                          <h1 className=" text-center cfcprimary">Currently You don't have any Proposal</h1>
-                        </div>
+                      <div class=" container justify-content-center" id="prpjob"> 
+            <div class="card mb-4 eventcard " id="ept">
+                <div class="card-body ">
+                  <div class="row ">
+                    <div class="col-md-9">
+                      <h5 class="card-title cfcprimary">Currently You don't have any Proposal</h5>
+                    </div>
+                    </div>
+                  </div>
+              </div>
+          </div>
+
+                        // <div className='applied-wrapper'>
+                        //   <h1 className=" text-center cfcprimary">Currently You don't have any Proposal</h1>
+                        // </div>
                       )
                 }
 }
