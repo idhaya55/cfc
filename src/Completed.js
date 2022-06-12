@@ -72,7 +72,7 @@ function Completed(props) {
             return real
           }
         })
-        setProject(response.data)
+        setProject(filtereddata)
       },(err)=> {
          console.log(err)
       })
@@ -92,7 +92,7 @@ function Completed(props) {
             return real
           }
         })
-        setProject(response.data)
+        setProject(filtereddata)
       },(err)=> {
          console.log(err)
       })
