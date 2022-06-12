@@ -1,7 +1,7 @@
 import axios from 'axios';
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Button, Form, Modal } from 'react-bootstrap';
-import StarRating from 'react-bootstrap-star-rating';
+import StarRatings from 'react-star-ratings';
 
 function CompletedChild(params) {
     let [project, setProject] = useState(params.obj);
@@ -24,7 +24,10 @@ function CompletedChild(params) {
         axios.put(`https://cfc-restapi.herokuapp.com/client_finish_work/${project.proposal_details['_id']}/${formObject.comment}/${formObject.rating}`, {
         headers: headers
       }).then((response) => {
-         console.log(response);
+        if(response){
+          project['rating'] = formObject['rating'];
+          project['feedback'] = formObject['comment'];
+        }
       },(err)=> {
          console.log(err)
       })
@@ -32,9 +35,20 @@ function CompletedChild(params) {
 
     function handleClick(e){
         setProject(project);
-        console.log(project)
         // params.setTemplate(obj);
       }
+
+
+      const getRating = useCallback(() => {
+        if(params['obj'].rating || params['obj'].feedback){
+          setformObject({comment:params['obj'].feedback, rating:Number(params['obj'].rating)})
+        }
+      },[params])
+
+
+      useEffect(() => {
+        getRating();
+      }, [getRating]);
    
     return (
         <div className="card mb-4 box" onClick={e => handleClick(e)}>
@@ -53,20 +67,19 @@ function CompletedChild(params) {
                       </div>   
                   </div>
                   <div className="col-md-3  d-flex justify-content-between align-items-center" >
-      
-                      <button type="button" className="btn btn-outline-danger rounded-pill " onClick={handleShow}>Add Review</button>
+                      <button type="button" className="btn btn-outline-danger rounded-pill " onClick={handleShow}>{project.rating ? 'View Review' : 'Add Review'}</button>
                       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Rating</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-        <StarRating
-        defaultValue={5}
-        min={0}
-        max={10}
-        value={formObject.rating} 
-        onChange={e => setformObject({comment:formObject.comment,rating:e.target.value})}
-        step={0.5} />
+        <StarRatings
+          rating={formObject.rating}
+          starRatedColor="blue"
+          changeRating={newRating => setformObject({comment:formObject.comment,rating:newRating})}
+          numberOfStars={6}
+          name='rating'
+        />
           <Form>
           
             {/* <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">

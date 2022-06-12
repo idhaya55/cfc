@@ -12,7 +12,7 @@ function Completed(props) {
 
   const [project, setProject] = useState([]);
   const [user, setUser] = useState([]);
-  
+  const [feedbacks , setfeedbacks] = useState([]);
 
   function handleClick(){
     // props.changeValue(<Description />)
@@ -32,6 +32,7 @@ function Completed(props) {
         headers: headers
       }).then((response) => {
         setUser(response.data)
+        setfeedbacks(response['data'].feedbacks);
       },(err)=> {
          console.log(err)
       })
@@ -40,7 +41,8 @@ function Completed(props) {
       axios.get(`https://cfc-restapi.herokuapp.com/get_client_by_mail_id/${props.mail}`, {
         headers: headers
       }).then((response) => {
-        setUser(response.data)
+        setUser(response.data);
+        setfeedbacks(response['data'].feedbacks);
       },(err)=> {
          console.log(err)
       })
@@ -59,6 +61,17 @@ function Completed(props) {
     axios.get(`https://cfc-restapi.herokuapp.com/get_finished_work/${user['_id']}`, {
         headers: headers
       }).then((response) => {
+        let workWithRating = feedbacks.map((res) => res['work_id']);
+        let filtereddata = response.data.map((real) => {
+          if(workWithRating.includes(real['_id'])){
+            real['feedback'] = feedbacks.filter((res) => res['work_id'] === real['_id'])[0].feedback;
+            real['rating'] = feedbacks.filter((res) => res['work_id'] === real['_id'])[0].rating;
+            return real
+          }
+          else{
+            return real
+          }
+        })
         setProject(response.data)
       },(err)=> {
          console.log(err)
@@ -68,13 +81,23 @@ function Completed(props) {
       axios.get(`https://cfc-restapi.herokuapp.com/get_client_finished_work/${user['_id']}`, {
         headers: headers
       }).then((response) => {
-        console.log(response,'res')
+        let workWithRating = feedbacks.map((res) => res['work_id']);
+        let filtereddata = response.data.map((real) => {
+          if(workWithRating.includes(real['_id'])){
+            real['feedback'] = feedbacks.filter((res) => res['work_id'] === real['_id'])[0].feedback;
+            real['rating'] = feedbacks.filter((res) => res['work_id'] === real['_id'])[0].rating;
+            return real
+          }
+          else{
+            return real
+          }
+        })
         setProject(response.data)
       },(err)=> {
          console.log(err)
       })
     }
-  },[user, props.type])
+  },[user, props.type, feedbacks])
 
   useEffect(() => {
     getUser();
