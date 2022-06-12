@@ -7,6 +7,7 @@ import Register from './Register';
 import LoginChild from './LoginChild';
 
 import AllJobs from './AllJobs';
+import ClientHome from './ClientHome';
 
 
 // function toggle(value){
@@ -30,25 +31,42 @@ function Login(props) {
   let str = ''
   let [currentSelect, setCurrentSelect] = useState('login')
   let [mail, setEmail] = useState(str);
+  let [type, setType] = useState(str);
   let [login, setLogin] = useState(false);
   let [template, setTemplate] = useState(obj);
   
   function templateChanger(e){
+    console.log(e)
     if(e === 'back'){
-      props.setValue({template:<AllJobs email={e} setTemplate={e => templateChanger(e)}/>, email:mail})
+      props.setValue({template:<AllJobs email={e} setTemplate={e => templateChanger(e)}/>, email:mail, type:type})
     }
     else{
       props.setValue({template:e,email:mail})
     }
-    // props.setValue(<AllJobs setValue={e => templateChanger}/>)
   }
+
+  function ClientHomefunction(e){
+    if(e === 'job posted'){
+    props.setValue({template:<ClientHome email={mail} setTemplate={e => ClientHomefunction(e)}/>, email:mail, type:type})
+  }
+  else{
+    props.setValue({template:e, email:mail, type:type})
+  }
+}
   function goBack(emailValue){
+    setType(emailValue.type)
     setEmail(emailValue)
-    mail = emailValue;
+    mail = emailValue.mail;
     console.log(login,emailValue,mail)
     
     setLogin(true);
-    props.setValue({template:<AllJobs email={emailValue} setTemplate={e => templateChanger(e)}/>, email:mail})
+    if(emailValue.type === 'client'){
+      props.setValue({template:<ClientHome email={emailValue.mail} setTemplate={e => ClientHomefunction(e)}/>, email:mail, type:emailValue.type})
+    }
+    else{
+      props.setValue({template:<AllJobs email={emailValue} setTemplate={e => templateChanger(e)}/>, email:mail, type:emailValue.type})
+    // 
+    }
   }
   // template = {
   //   current: <LoginChild /> 

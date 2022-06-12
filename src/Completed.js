@@ -1,24 +1,85 @@
 import './Completed.css';
 import './App.css';
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import './styles.css';
 import React from 'react';
 // import CompletedChild from './CompletedChild';
 // import Description from './Description';
 import CompletedChild from './CompletedChild';
+import axios from 'axios';
 function Completed(props) {
-  let object = [];
+  // let object = [];
 
-  const [project, setProject] = useState([{ heading:'Looking for beautiful female models',desc:'Looking for beautiful female models that can provide photos and videos for social media and online platforms.',cost:'₹2000 per hour',bid:'₹1500 per hour',status:'Pending'}]);
+  const [project, setProject] = useState([]);
+  const [user, setUser] = useState([]);
+  
 
   function handleClick(){
     // props.changeValue(<Description />)
-    setProject(object)
-    console.log(object,'comp')
+    setProject(project)
     
-
-   
   }
+
+  const getUser = useCallback(() => {
+
+    const headers = {
+        'accept': 'application/json',
+        'Content-Type': 'application/json',
+      }  
+
+  if(props.type === 'freelancer'){
+    axios.get(`https://cfc-restapi.herokuapp.com/get_freelancer_by_mail_id/${props.mail}`, {
+        headers: headers
+      }).then((response) => {
+        setUser(response.data)
+      },(err)=> {
+         console.log(err)
+      })
+    }
+    else{
+      axios.get(`https://cfc-restapi.herokuapp.com/get_client_by_mail_id/${props.mail}`, {
+        headers: headers
+      }).then((response) => {
+        setUser(response.data)
+      },(err)=> {
+         console.log(err)
+      })
+    }
+  },[props.mail, props.type])
+
+
+  const getCompletedWork = useCallback(() => {
+
+    const headers = {
+        'accept': 'application/json',
+        'Content-Type': 'application/json',
+      }  
+
+      if(props.type === 'freelancer'){
+    axios.get(`https://cfc-restapi.herokuapp.com/get_finished_work/${user['_id']}`, {
+        headers: headers
+      }).then((response) => {
+        setProject(response.data)
+      },(err)=> {
+         console.log(err)
+      })
+    }
+    else{
+      axios.get(`https://cfc-restapi.herokuapp.com/get_client_finished_work/${user['_id']}`, {
+        headers: headers
+      }).then((response) => {
+        console.log(response,'res')
+        setProject(response.data)
+      },(err)=> {
+         console.log(err)
+      })
+    }
+  },[user, props.type])
+
+  useEffect(() => {
+    getUser();
+    getCompletedWork()
+  }, [ getUser, getCompletedWork]);
 
 
 
@@ -56,10 +117,10 @@ function Completed(props) {
       <h4 className=" text-center cfcprimary"> Completed Projects </h4>
           <div className=" container justify-content-center " > 
           {
-             React.Children.toArray(project.map(function(object, i){
+           project.map(function useCallback(object, i){
                     //  return child(object)setTemplate={e => handleClick()}
-                    return <CompletedChild obj={object} key={i} />;
-                }))
+                    return <CompletedChild obj={object} />;
+                },[project])
               }
             
            

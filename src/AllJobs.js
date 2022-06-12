@@ -1,22 +1,42 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import AllJobsChild from './AllJobsChild';
 import Bid from './Bid';
 import ViewJobs from './ViewJobs'
 import './AllJobs.css'
+import axios from 'axios';
 function AllJobs(params) {
 
     let object = [];
-  const [project, setProject] = useState([{ title:'Illustrator, Xd and Photoshop designer',desc:'Special title treatment.', desc_long:'Creating illustrator cards, then generating an animation in Xd, followed by converting it into a GIF in photoshop.', payment:'₹2000 per hour',bid:'₹1500 per hour',location:'Nugambakkam'}]);
+  const [project, setProject] = useState([]);
+
+  const headers = {
+    'accept': 'application/json',
+    'Content-Type': 'application/json',
+};
 
   function handleClick(){
     setProject(object)
   }
-  function templateHandler(e){
+
+  useEffect(() => { 
+    axios.get(`https://cfc-restapi.herokuapp.com/get_active_work`, {
+      headers: headers
+    }).then((response) => {
+     setProject(response.data);
+     console.log(project,'res')
+    },(err)=> {
+      alert("Incorrect E-mail");
+       console.log(err)
+    })
+  })
+
+  function templateHandler(e, value){
+      console.log(e);
    if(e === 'bid'){
-       params.setTemplate(<Bid  setBid={e => templateHandler(e)}/>);
+       params.setTemplate(<Bid email={params.email} obj={value} setBid={e => templateHandler(e)}/>);
    }
    else if(e === 'view'){
-       params.setTemplate(<ViewJobs changeTemplate={e => templateHandler(e)}/>)
+       params.setTemplate(<ViewJobs  email={params.email} obj={value} changeTemplate={e => templateHandler(e)}/>)
    }
    else if(e === 'back'){
        params.setTemplate('back')
@@ -72,8 +92,8 @@ function AllJobs(params) {
     <div id="pons">
         <div className="col-lg-9 col-sm-12" id="rightbar">
         {
-        project.map(function(object, i){
-          return <AllJobsChild obj={object} key={i} setTemplate={e => templateHandler(e)}/>;
+         project.map(function(object, i){
+          return <AllJobsChild obj={object} key={i} setTemplate={(e,value) => templateHandler(e, value)}/>;
           })
     }
             {/* <div className="card border-secondary mb-3 eventcard">

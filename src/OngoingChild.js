@@ -1,14 +1,32 @@
+import axios from 'axios';
 import { useState } from 'react';
 
 function OngoingChild(params) {
-    console.log(params.obj)
-    const [project, setProject] = useState(params.obj)
-    let obj = params.obj;
+
+    const [project, setProject] = useState(params.obj);
+    const [formObject, setFormObject] = useState({comment:'',rating:0})
     function handleClick(){
-        console.log(project)
-        setProject(obj)
-       
+        setProject(project)
       }
+
+
+      function proposalClicked(e){
+          console.log(project,'project',params)
+        let headers = {
+            'accept': 'application/json',
+            'Content-Type': 'application/json',
+        
+        }
+          axios.put(`https://cfc-restapi.herokuapp.com/freelancer_finish_work/${project.proposal_details['_id']}/${formObject.comment || 'Comments  not  Entered'}/${formObject.rating}`, {
+          headers: headers
+        }).then((response) => {
+          setFormObject(formObject);
+          params.proposalClick('completed')
+        },(err)=> {
+           console.log(err)
+        })
+    }
+
     if(Object.keys(params.obj).length > 0){
     return (
 <div className="row justify-content-center " onClick={e => handleClick}>
@@ -23,6 +41,9 @@ function OngoingChild(params) {
               </div>
               <div className="col-md-6"> 
                   <h6 className="card-title cfcprimary" > Bid amount : <span className="fw-bold text-dark">{project.bid}</span> </h6>  
+              </div>
+              <div className="col-md-3  d-flex justify-content-between align-items-center">
+              <button type="button" className="btn btn-outline-danger rounded-pill " onClick={e => proposalClicked(e)} >Complete Work</button>
               </div>
             </div>   
         </div>

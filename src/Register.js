@@ -24,7 +24,9 @@ function Register(props) {
     axios.post('https://cfc-restapi.herokuapp.com/register',obj, {
       headers: headers
     }).then((response) => {
-      props.setmail(value.email)
+      console.log(response.data,'data')
+      let obj = {type:value.type, mail:value.email} 
+      props.setmail(obj)
       alert("Account Created");
     },(err)=> {
       alert("E-mail Not Exsists");

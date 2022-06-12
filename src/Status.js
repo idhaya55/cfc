@@ -14,17 +14,22 @@ import Completed from './Completed';
 import { FaArrowRight } from "react-icons/fa";
 import Description from './Description';
 function Status(props) {
-  
+
     function handleClick(params) {
+        console.log(props,'prop')
         if(params === 'ongoing'){
-            props.setValue(<Ongoing />)
-        }
+            props.setValue(<Ongoing  mail={props.email} type={props.type}  changeValue={e => handleClick('completed')}/>)
+    }
         else if(params === 'completed'){
-            props.setValue(<Completed changeValue={e => changeTemplate(e)} />)
+            props.setValue(<Completed mail={props.email} changeValue={e => changeTemplate(e)} type={props.type} />)
         }
         else{
-            props.setValue(<Applied />)
+            props.setValue(<Applied mail={props.email} type={props.type} changeValue={e => openProposal(e)}/>)
         }
+    }
+
+    function openProposal(params){
+        props.setValue(params)
     }
     function changeTemplate(e){
         console.log(e,'desc')

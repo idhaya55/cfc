@@ -1,14 +1,68 @@
 import './applied.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './styles.css';
+import axios from 'axios';
 
 function Bid(props) {
+  let incominObject = props.obj;
+  const [user, setUser] = useState({});
   const [project, setProject] = useState({cover_letter:'',duration:'',amount:'' });
+  const headers = {
+    'accept': 'application/json',
+    'Content-Type': 'application/json',
+  }  
 
   function handleClick(){
     setProject(project)
    
   }
+
+  useEffect(() => {
+    console.log(props,'prop')
+    axios.get(`https://cfc-restapi.herokuapp.com/get_freelancer_by_mail_id/${props.email.mail}`, {
+        headers: headers
+      }).then((response) => {
+        console.log(response)
+        if(response){
+          setUser(response.data)
+
+        }
+        
+        // 
+      },(err)=> {
+         console.log(err)
+      })
+  })
+
+  // useEffect(() => {
+  //   fetchBusinesses(props);
+  // }, [fetchBusinesses]);
+
+
+  function bidded(e){
+    console.log(user)
+    let object = {
+      "work_id": incominObject._id,
+      "client_id": incominObject.client_id,
+      "freelancer_id": props.email.mail,
+      "bid_amount": project.amount,
+      "bid_duration": project.duration,
+      "bid_description": project.cover_letter
+    };
+      axios.post(`https://cfc-restapi.herokuapp.com/create_proposal`, object, {
+      headers: headers
+    }).then((response) => {
+        console.log(response.data,'data')
+        // props.setmail(obj)
+        setTemplate('submit')
+      // 
+    },(err)=> {
+      alert("Incorrect E-mail");
+       console.log(err)
+    })
+
+  }
+
 
   function setTemplate(value){
     if(value === 'submit'){
@@ -63,7 +117,7 @@ function Bid(props) {
                             
                         </div><br/>
                             <div className="text-center">
-                                    <button type="button" className="btn btn-outline-danger rounded-pill" onClick={e => setTemplate('submit')}>Submit proposal</button>
+                                    <button type="button" className="btn btn-outline-danger rounded-pill" onClick={e => bidded()}>Submit proposal</button>
                                     <button type="button" className="btn btn-outline-danger rounded-pill" onClick={e => setTemplate('cancel')}>cancel </button>
                             </div>
                     </div>

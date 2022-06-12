@@ -23,12 +23,13 @@ console.log(props,delwin)
       }
 
       useEffect(() => {
+          if(props.type === 'freelancer'){
         axios.get(`https://cfc-restapi.herokuapp.com/get_freelancer_by_mail_id/${props.email}`, {
             headers: headers
           }).then((response) => {
 
             if(response){
-                setProfile({name:response.data['username'],number:response.data['mobile'],mail:response.data['mail_id'],dob:response.data['dob'],skills:response.data['skills'] || '',rate:response.data['rate'] || '',location:response.data['location'] || '',profile_picture:response.data['profile_picture']})
+                setProfile({name:response.data['username'],number:response.data['mobile'],mail:response.data['mail_id'],dob:response.data['dob'],skills:response.data['skills'] || '',rate:response.data['rate'] || '',location:response.data['address'] || '',profile_picture:response.data['profile_picture']})
 
             }
             
@@ -36,6 +37,22 @@ console.log(props,delwin)
           },(err)=> {
              console.log(err)
           })
+        }
+        else{
+            axios.get(`https://cfc-restapi.herokuapp.com/get_client_by_mail_id/${props.email}`, {
+                headers: headers
+              }).then((response) => {
+    
+                if(response){
+                    setProfile({name:response.data['username'],number:response.data['mobile'],mail:response.data['mail_id'],dob:response.data['dob'],skills:response.data['skills'] || '',rate:response.data['rate'] || '',location:response.data['location'] || '',profile_picture:response.data['profile_picture']})
+    
+                }
+                
+                // 
+              },(err)=> {
+                 console.log(err)
+              })
+        }
       })
         // const fetchProfileDetails = () => {
         // axios.get(`https://cfc-restapi.herokuapp.com/get_freelancer_by_mail_id/${props.email}`, {

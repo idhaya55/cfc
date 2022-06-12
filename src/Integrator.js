@@ -13,11 +13,12 @@ import UpdateProfile from './UpdateProfile';
 
 
 function Integrator(){
-    const [email, setEmail] = useState('')
+    const [email, setEmail] = useState('');
+    const [type, setType] = useState('')
     const [inHome, setHome] = useState(false);
     const [currentPage, setCurrentPage] = useState(<Home />);
 function loginHandler(value){
-   
+    console.log(email, type)
     if(value === 'login'){
         setCurrentPage(<Login type={'login'} setValue={e => changeEmail(e)} />);
     }
@@ -28,33 +29,34 @@ function loginHandler(value){
     }
     else if(value === 'profile'){
         console.log(email)
-        setCurrentPage(<Profile email={email}/> )
+        setCurrentPage(<Profile email={email} type={type}/> )
     }
     else if(value === 'status'){
-        setCurrentPage(<Status email={email} setValue={e => setTemplate(e)}/> )
+        setCurrentPage(<Status email={email} setValue={e => setTemplate(e)} type={type}/> )
     }
     else if(value === 'update-profile'){
-        setCurrentPage(<UpdateProfile email={email} setValue={e => gotoJobsScreen(e)}/>)
+        setCurrentPage(<UpdateProfile email={email} type={type} setValue={e => gotoJobsScreen(e)}/>)
     }
     else if(value === 'home'){
         if(inHome === true){
-        setCurrentPage(<AllJobs setTemplate={e => templateChanger(e)}/> )
+        setCurrentPage(<AllJobs email={email} setTemplate={e => templateChanger(e)}/> )
         }
         else{
             setCurrentPage(<Home /> )
         }
     }
     else{
-        setCurrentPage(<Login type={'signup'}   setValue={e => changeEmail(e)} />)
+        setCurrentPage(<Login type={'signup'}  setValue={e => changeEmail(e)} />)
     }
 }
 
 function gotoJobsScreen(){
-    setCurrentPage(<AllJobs setTemplate={e => templateChanger(e)}/> )
+    setCurrentPage(<AllJobs email={email} setTemplate={e => templateChanger(e)} /> )
 }
 
 function changeEmail(e){
     console.log(e);
+    setType(e.type)
     setEmail(e.email);
     setHome(true);
     setCurrentPage(e.template)

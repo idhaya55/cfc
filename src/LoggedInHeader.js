@@ -72,6 +72,9 @@ function LoggedInHeader(params) {
                     <li className="nav-item">
                       <a href="#/" className="nav-link" style={currentSelect === 'update' ? { color: '#FF4646',fontWeight: 'bold',borderBottom: '3px #FF4646 solid'}: {}} onClick={e => handleClick('update')}>Update Profile</a>
                     </li>
+                    <li className="nav-item">
+                      <a href="#/" className="nav-link" style={currentSelect === 'update' ? { color: '#FF4646',fontWeight: 'bold',borderBottom: '3px #FF4646 solid'}: {}} onClick={e => handleClick('chat')}>Chat</a>
+                    </li>
                     
         
         {/* <select value={value} onChange={e => handleChange(e.target.value)}>

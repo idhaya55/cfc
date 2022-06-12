@@ -1,16 +1,60 @@
 import './Postjob.css';
 import './styles.css';
-import { useState } from 'react';
-function Postjob() {
-  let obj ={title:'',short_desc:'',desc:'',location:'',address:'',type:'',skills:'',duration:'',date:'',amount:'',org_name:'',org_mail:'',org_website:'',attachment:''}
-    const [project, setProject] = useState(obj)
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+function Postjob(prop) {
 
+  const headers = {
+    'accept': 'application/json',
+    'Content-Type': 'application/json',
+  }  
+
+    let obj ={title:'',short_desc:'',desc:'',location:'',address:'',type:'',skills:'',duration:'',date:'',amount:'',org_name:'',org_mail:'',org_website:'',attachment:''}
+    const [project, setProject] = useState(obj)
+    const [client, setClient] = useState({})
     function onChange(key, value){
             let temp = {title:project.title,short_desc:project.short_desc,desc:project.desc,location:project.location,address:project.address,type:project.type,skills:project.skills,duration:project.duration,date:project.date,amount:project.amount,org_name:project.org_name,org_mail:project.org_mail,org_website:project.org_website,attachment:project.attachment}
             temp[key] = value;
             console.log(temp)
             setProject(temp);
     }
+
+    useEffect(() => { 
+      axios.get(`https://cfc-restapi.herokuapp.com/get_client_by_mail_id/${prop.email}`, {
+        headers: headers
+      }).then((response) => {
+       setClient(response.data)
+      },(err)=> {
+        alert("Incorrect E-mail");
+         console.log(err)
+      })
+    })
+
+
+  
+    function postWork(e){
+            let obj2 = {
+              "title": project.title,
+              "short_description": project.short_desc,
+              "long_description": project.desc,
+              "amount": project.amount,
+              "duration": project.duration,
+              "documents": project.attachment,
+              "skills_required": [
+                project.skills
+              ],
+              "client_id": client._id
+            }
+       axios.post(`https://cfc-restapi.herokuapp.com/post_work`,obj2, {
+         headers: headers
+       }).then((response) => {
+         prop.jobPosted('job posted')
+       },(err)=> {
+          console.log(err)
+       })
+        
+   }
+
     return(
     
     <div className="container ms-auto " >
@@ -75,7 +119,7 @@ function Postjob() {
              </div>
               <div className="d-flex justify-content-center my-3">
   
-                <button className="btn btn-outline-danger btn-md me-md-2 rounded-pill" type="button" ><b>Post a Job</b></button>
+                <button className="btn btn-outline-danger btn-md me-md-2 rounded-pill" type="button" onClick={e => postWork(e)}><b>Post a Job</b></button>
                 </div>   
           </div>      
         </form>

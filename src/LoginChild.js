@@ -17,7 +17,8 @@ function LoginChild(props) {
       headers: headers
     }).then((response) => {
       if(mail.password === response.data.password){
-        props.setmail(mail.email)
+        let obj = {type:response.data.user_type, mail:mail.email} 
+        props.setmail(obj)
       }
       else{
         alert("Incorrect Password");

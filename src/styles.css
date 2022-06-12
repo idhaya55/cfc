@@ -287,3 +287,11 @@ padding-left: 0%;
     float: right;
     width: 20%;
 }
+
+.floated-left{
+    text-align: left;
+}
+
+.fourty-width{
+    width: 40rem;
+}

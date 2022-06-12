@@ -1,21 +1,23 @@
 import  { useState } from 'react';
 import './styles.css';
 function ViewJobs(props) {
-    const[value, setValue] = useState({name:'',email:'',password:'', password_2:'',number:'',type:''}); 
+    let obj = props.obj;
+    const[value, setValue] = useState(obj); 
 
 
-    function clickHandler() {
+    function clickHandler(e) {
+        console.log(value)
         setValue(value);
     }
     return(
         <div>
-        <div className=" justify-content-center " id="rightbar bar" onClick={e => clickHandler}>
+        <div className=" justify-content-center " id="rightbar bar" >
     
                 <div className="card  border-secondary mb-3 eventcard bid-widther" >
-                    <div className="card-body">
-                        <h5 className="card-title">YouTube Video Creator/Content Manager</h5>
-                        <p className="card-text">Seeking a content creator to create Youtube video around meditation and relaxtion</p>
-                            <p>Budget: <b>$100</b> <span className="right-div" ><i className="fas fa-map-marker-alt"></i> Nungambakkam</span></p>
+                    <div className="card-body" onClick={e => clickHandler(e)}>
+                        <h5 className="card-title">{value.title}</h5>
+                        <p className="card-text">{value.short_description}</p>
+                            <p>Budget: <b>{value.amount}</b> <span className="right-div" ><i className="fas fa-map-marker-alt"></i> {value.location || ''}</span></p>
                         
                     </div>
                 </div>
@@ -23,9 +25,8 @@ function ViewJobs(props) {
                 <div className="card border-secondary mb-3 eventcard bid-widther"  >
                     <div className="card-body">
                         <h5 className="card-title">Details</h5>
-                        <p className="card-text">Seeking a content creator to create YouTube videos around meditation and
-                            relaxation.</p><br/>
-                            <p className="card-text">This job as the potentail for long-term contract.</p>   
+                        <p className="card-text">{value.short_description}</p><br/>
+                            <p className="card-text">{value.long_description}</p>   
                     </div>
                 </div>
                 <div className="card border-secondary mb-3 eventcard bid-widther">

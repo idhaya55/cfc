@@ -1,30 +1,80 @@
 import Home from './Home';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import './styles.css';
 import axios from 'axios';
 function UpdateProfile(params) {
-    let obj = {name:'',email:'',phone_number:'', dob:'',location:'',charges:'',skills:'',profile:''};
-    const headers = {
-      'accept': 'application/json',
-      'Content-Type': 'application/json',
-  
-    }  
-    let [value, setValue] = useState(obj); 
+  const headers = {
+    'accept': 'application/json',
+    'Content-Type': 'application/json',
 
-    function goBack(){
+  } 
+    let [value, setValue] = useState({}); 
+
+    function goBack(e){
+      console.log(value,'val')
+       if(e === 'save'){
+        if(params.type === 'freelancer'){
+          // /{client_id}/idhaya2/1234567891/fhggfdfb/12-02-1999/xffvb/xdv/gn?freelancer_id=10824184-5b53-40a6-945c-9a4f2b47e612
+         
+        axios.put(`https://cfc-restapi.herokuapp.com/update_freelancer_profile/client_id/${value.name}/${value.phone_number}/${value.location}/${value.dob}/${value.charges}/${value.skills}/gn?freelancer_id=${value.client_id}`, {
+          headers: headers
+        }).then((response) => {
+          console.log(response)
+          params.setValue(<Home />)
+          // if(response){
+            
+          //     setValue({mail_id:response.data['mail_id'],client_id:response.data['_id'],name:response.data['username'],phone_number:response.data['mobile'],email:response.data['mail_id'],dob:response.data['dob'],skills:response.data['skills'] || '',charges:response.data['rate'] || '',location:response.data['location'] || '',profile:response.data['profile_picture']})
+
+          // }
+          
+          // 
+        },(err)=> {
+           console.log(err)
+        })
+        
+      }
+      else{
+        axios.put(`https://cfc-restapi.herokuapp.com/update_client_profile/${value.client_id}/${value.name}/${value.phone_number}/${value.location}/${value.dob}/${value.charges}/${value.skills}`, {
+          headers: headers
+        }).then((response) => {
+          console.log(response)
+          params.setValue(<Home />)
+          // if(response){
+            
+          //     setValue({mail_id:response.data['mail_id'],client_id:response.data['_id'],name:response.data['username'],phone_number:response.data['mobile'],email:response.data['mail_id'],dob:response.data['dob'],skills:response.data['skills'] || '',charges:response.data['rate'] || '',location:response.data['location'] || '',profile:response.data['profile_picture']})
+
+          // }
+          
+          // 
+        },(err)=> {
+           console.log(err)
+        })
+      }
+
+        
+       }
+       else{
         params.setValue(<Home />)
+       }
+       
+        
     }
     function handleClick(e){
         setValue(value)
     }
 
-    useEffect(() => {
+    const fetchBusinesses = useCallback(() => {
+    const headers = {
+      'accept': 'application/json',
+      'Content-Type': 'application/json',
+  
+    } 
+      if(params.type === 'freelancer'){
       axios.get(`https://cfc-restapi.herokuapp.com/get_freelancer_by_mail_id/${params.email}`, {
           headers: headers
         }).then((response) => {
-
           if(response){
-              setValue({name:response.data['username'],phone_number:response.data['mobile'],email:response.data['mail_id'],dob:response.data['dob'],skills:response.data['skills'] || '',charges:response.data['rate'] || '',location:response.data['location'] || '',profile:response.data['profile_picture']})
+              setValue({mail_id:response.data['mail_id'],client_id:response.data['_id'],name:response.data['username'],phone_number:response.data['mobile'],email:response.data['mail_id'],dob:response.data['dob'],skills:response.data['skills'] || '',charges:response.data['rate'] || '',location:response.data['address'] || '',profile:response.data['profile_picture']})
 
           }
           
@@ -32,7 +82,31 @@ function UpdateProfile(params) {
         },(err)=> {
            console.log(err)
         })
-    })
+      }
+      else{
+        axios.get(`https://cfc-restapi.herokuapp.com/get_client_by_mail_id/${params.email}`, {
+          headers: headers
+        }).then((response) => {
+          if(response){
+              setValue({mail_id:response.data['mail_id'],client_id:response.data['_id'],name:response.data['username'],phone_number:response.data['mobile'],email:response.data['mail_id'],dob:response.data['dob'],skills:response.data['skills'] || '',charges:response.data['rate'] || '',location:response.data['address'] || '',profile:response.data['profile_picture']})
+
+          }
+          
+          // 
+        },(err)=> {
+           console.log(err)
+        })
+      }
+    },[params])
+  
+    useEffect(() => {
+      fetchBusinesses();
+    }, [fetchBusinesses]);
+
+    
+    // useEffect(() => {
+      
+    // }, [])
     return(
         <div>
         <h2 className="text-center cfcprimary" onClick={e => handleClick(e)}>Update your profile</h2><br/>
@@ -51,13 +125,13 @@ function UpdateProfile(params) {
             <div className="card border-dark mb-3"> 
                 
               <div className="card_info">
-                  <h2 className='centered-align'>update your skills</h2>
+                  <h2 className='centered-align'>{ params.type === 'freelancer' ? 'Update your skills' : 'Expected Skills' }</h2>
                   
                   <div className="form-group update-wrapper" > 
                     <label for="exampleFormControlTextarea1"></label> 
-                    <input type="text" className="form-control semi-rounded" id="exampleFormControlTextarea1"  value={value.skills}  onChange={(e) => setValue({name:value.name,email:value.email,phone_number:value.phone_number, dob:value.dob,location:value.location,charges:value.charges,skills:e.target.value,profile:value.profile})}/></div>
+                    <input type="text" className="form-control semi-rounded" id="exampleFormControlTextarea1"  value={value.skills}  onChange={(e) => setValue({mail_id:value.mail_id,client_id:value.client_id,name:value.name,email:value.email,phone_number:value.phone_number, dob:value.dob,location:value.location,charges:value.charges,skills:e.target.value,profile:value.profile})}/></div>
                     <br/>
-                    <button className="btn btn-outline-danger btn-md me-md-4 rounded-pill right-div" type="button" onClick={e => setValue({name:value.name,email:value.email,phone_number:value.phone_number, dob:value.dob,location:value.location,charges:value.charges,skills:'',profile:value.profile})}><b>Clear</b></button>
+                    <button className="btn btn-outline-danger btn-md me-md-4 rounded-pill right-div" type="button" onClick={e => setValue({mail_id:value.mail_id,client_id:value.client_id,name:value.name,email:value.email,phone_number:value.phone_number, dob:value.dob,location:value.location,charges:value.charges,skills:'',profile:value.profile})}><b>Clear</b></button>
                   
               </div>
           </div>
@@ -70,29 +144,29 @@ function UpdateProfile(params) {
               <form className=" rounded shadow-5-strong p-5 border-success">
                      <div className="form-outline mb-4">
                          <label className="form-label" >Name</label>   
-                           <input type="Name" id="typeName" className="form-control form-control-lg bid-rounded"   value={value.name}  onChange={(e) => setValue({name:e.target.value,email:value.email,phone_number:value.phone_number, dob:value.dob,location:value.location,charges:value.charges,skills:value.skills,profile:value.profile})} />
+                           <input type="Name" id="typeName" className="form-control form-control-lg bid-rounded"   value={value.name}  onChange={(e) => setValue({mail_id:value.mail_id,client_id:value.client_id,name:e.target.value,email:value.email,phone_number:value.phone_number, dob:value.dob,location:value.location,charges:value.charges,skills:value.skills,profile:value.profile})} />
                      </div>
        
                      <div className="form-outline form-white mb-4">
                          <label className="form-label" for="typeEmailX">Email</label>
-                       <input type="Email" id="typeEmailX" className="form-control form-control-lg bid-rounded"  value={value.email}  onChange={(e) => setValue({name:value.name,email:e.target.value,phone_number:value.phone_number, dob:value.dob,location:value.location,charges:value.charges,skills:value.skills,profile:value.profile})}/>
+                       <input type="Email" id="typeEmailX" className="form-control form-control-lg bid-rounded"  value={value.email}  onChange={(e) => setValue({mail_id:value.mail_id,client_id:value.client_id,name:value.name,email:e.target.value,phone_number:value.phone_number, dob:value.dob,location:value.location,charges:value.charges,skills:value.skills,profile:value.profile})}/>
                      </div>
                      <div className="form-outline form-white mb-4">
                       <label className="form-label" for="typePhone NumberX">Phone Number</label>
-                    <input type="Phone Number" id="typePhone NumberX" className="form-control form-control-lg bid-rounded"  value={value.phone_number}  onChange={(e) => setValue({name:value.name,email:value.email,phone_number:e.target.value, dob:value.dob,location:value.location,charges:value.charges,skills:value.skills,profile:value.profile})}/>
+                    <input type="Phone Number" id="typePhone NumberX" className="form-control form-control-lg bid-rounded"  value={value.phone_number}  onChange={(e) => setValue({mail_id:value.mail_id,client_id:value.client_id,name:value.name,email:value.email,phone_number:e.target.value, dob:value.dob,location:value.location,charges:value.charges,skills:value.skills,profile:value.profile})}/>
                   </div>
                   <div className="form-outline form-white mb-4">
                     <label className="form-label" for="typeDOBX">DOB</label>
                  
-                  <input type="date"  className="form-control cfcprimary bid-rounded" required  value={value.dob}  onChange={(e) => setValue({name:value.name,email:value.email,phone_number:value.phone_number, dob:e.target.value,location:value.location,charges:value.charges,skills:value.skills,profile:value.profile})}/>
+                  <input type="date"  className="form-control cfcprimary bid-rounded" required  value={value.dob}  onChange={(e) => setValue({mail_id:value.mail_id,client_id:value.client_id,name:value.name,email:value.email,phone_number:value.phone_number, dob:e.target.value,location:value.location,charges:value.charges,skills:value.skills,profile:value.profile})}/>
                 </div>
                 <div className="form-outline form-white mb-4">
                   <label className="form-label" for="typeArea/LocationX">Area/Location</label>
-                <input type="Area/Location" id="typeArea/LocationX" className="form-control form-control-lg bid-rounded"   value={value.location}  onChange={(e) => setValue({name:value.name,email:value.email,phone_number:value.phone_number, dob:value.dob,location:e.target.value,charges:value.charges,skills:value.skills,profile:value.profile})}/>
+                <input type="Area/Location" id="typeArea/LocationX" className="form-control form-control-lg bid-rounded"   value={value.location}  onChange={(e) => setValue({mail_id:value.mail_id,client_id:value.client_id,name:value.name,email:value.email,phone_number:value.phone_number, dob:value.dob,location:e.target.value,charges:value.charges,skills:value.skills,profile:value.profile})}/>
                 </div>
                 <div className="form-outline form-white mb-4">
                   <label className="form-label" for="typeCharges/hourX">Charges per hour</label>
-                <input type="Charges/hour" id="typeCharges/hourX" className="form-control form-control-lg bid-rounded"   value={value.charges}  onChange={(e) => setValue({name:value.name,email:value.email,phone_number:value.phone_number, dob:value.dob,location:value.location,charges:e.target.value,skills:value.skills,profile:value.profile})}/>
+                <input type="Charges/hour" id="typeCharges/hourX" className="form-control form-control-lg bid-rounded"   value={value.charges}  onChange={(e) => setValue({mail_id:value.mail_id,client_id:value.client_id,name:value.name,email:value.email,phone_number:value.phone_number, dob:value.dob,location:value.location,charges:e.target.value,skills:value.skills,profile:value.profile})}/>
               </div>
                      </form>
             </div>
@@ -104,7 +178,7 @@ function UpdateProfile(params) {
               <div className="card_info"> 
                  <p className='centered-align'>Are you done?</p> 
                  <div className="text-center">
-                 <button className="btn btn-outline-danger  rounded-pill" type="button" onClick={e => goBack()}><b>Save changes</b></button><br/><br/>
+                 <button className="btn btn-outline-danger  rounded-pill" type="button" onClick={e => goBack('save')}><b>Save changes</b></button><br/><br/>
                  <button className="btn btn-outline-danger  rounded-pill" type="button" onClick={e => goBack()}><b>Cancel</b></button>
                  </div>
                  
