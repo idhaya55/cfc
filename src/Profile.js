@@ -11,7 +11,6 @@ function Profile(props) {
         'Content-Type': 'application/json',
       }  
 
-console.log(props,delwin)
     
     let params = {name:'',number:'',mail:'',dob:'',skills:'',rate:'',location:''}
     const [profile, setProfile] = useState(params)
@@ -27,9 +26,8 @@ console.log(props,delwin)
         axios.get(`https://cfc-restapi.herokuapp.com/get_freelancer_by_mail_id/${props.email}`, {
             headers: headers
           }).then((response) => {
-
             if(response){
-                setProfile({name:response.data['username'],number:response.data['mobile'],mail:response.data['mail_id'],dob:response.data['dob'],skills:response.data['skills'] || '',rate:response.data['rate'] || '',location:response.data['address'] || '',profile_picture:response.data['profile_picture']})
+                setProfile({name:response.data['username'],number:response.data['mobile'],mail:response.data['mail_id'],dob:response.data['dob'],skills:response.data['skills'] || '',rate:response.data['description'] || '',location:response.data['address'] || '',profile_picture:response.data['profile_picture']})
 
             }
             
@@ -42,9 +40,8 @@ console.log(props,delwin)
             axios.get(`https://cfc-restapi.herokuapp.com/get_client_by_mail_id/${props.email}`, {
                 headers: headers
               }).then((response) => {
-    
                 if(response){
-                    setProfile({name:response.data['username'],number:response.data['mobile'],mail:response.data['mail_id'],dob:response.data['dob'],skills:response.data['skills'] || '',rate:response.data['rate'] || '',location:response.data['location'] || '',profile_picture:response.data['profile_picture']})
+                    setProfile({name:response.data['username'],number:response.data['mobile'],mail:response.data['mail_id'],dob:response.data['dob'],skills:response.data['skills'] || '',rate:response.data['description'] || '',location:response.data['address'] || '',profile_picture:response.data['profile_picture']})
     
                 }
                 
@@ -78,7 +75,7 @@ console.log(props,delwin)
           <div className="row justify-content-evenly ">
               <div className=" col-lg-4 mb-4  ">
                   <div className="card rounded-form"><br/>
-                      <img className="card-img-top  card_img" src={profile.profile_picture}   alt="User_Image"  /><br/>
+                      <img className="card-img-top  card_img" src={delwin}   alt="User_Image"  /><br/>
                         <div className="card-body text-center card_info ">
                           <h5 className="card-title cfcprimary">{profile.name || ''} </h5>
                           <p className="card-text ">
@@ -109,22 +106,22 @@ console.log(props,delwin)
                           <tr>
                               <td>DOB</td>
                               <td>:</td>
-                              <td>{profile.dob || ''}</td>
+                              <td>{profile.dob  === 'not' ? '' : profile.dob}</td>
                           </tr>
                           <tr>
                               <td>skills</td>
                               <td>:</td>
-                              <td>{profile.skills || ''}</td>
+                              <td>{profile.user_type === 'client' ? (profile.expected_skills || '') : (profile.skills || '')}</td>
                           </tr>
                           <tr>
                               <td>Charges</td>
                               <td>:</td>
-                              <td>{profile.rate || ''}</td>
+                              <td>{profile.rate === 'not' ? '' : profile.rate}</td>
                           </tr>
                           <tr>
                               <td>Location</td>
                               <td>:</td>
-                              <td>{profile.location || ''}</td>
+                              <td>{profile.location === 'not' ? '' : profile.location}</td>
                           </tr>
                       </table>
                             

@@ -10,36 +10,95 @@ import Status from './Status';
 import AllJobs from './AllJobs';
 import Footer from './Footer';
 import UpdateProfile from './UpdateProfile';
+import ClientHome from './ClientHome';
 
 
 function Integrator(){
+    const [load, setLoad] = useState(false);
     const [email, setEmail] = useState('');
     const [type, setType] = useState('')
     const [inHome, setHome] = useState(false);
     const [currentPage, setCurrentPage] = useState(<Home />);
+
+
+
+// const logginDecider = useCallback(() => {
+    
+// }) 
+
+
+function logginHandler(e){
+    if(localStorage.getItem('email')){
+         setEmail(localStorage.getItem('email'))
+    }
+    if(localStorage.getItem('type')){
+         setType(localStorage.getItem('type'))
+    }
+    // element = localStorage.getItem('type') ? setEmail(localStorage.getItem('email')) : '';
+    if(load === false){
+    if(email){
+             if(type === 'freelancer'){
+                 gotoJobsScreen('')
+                 setHome(true)
+             }
+             else if(type === 'client'){
+                setHome(true)
+                setCurrentPage(<ClientHome email={email} setTemplate={e => templateChanger(e)} />)
+             }
+         }
+         else{
+            setCurrentPage(<Home />)
+         }
+        }
+    }
+    // useEffect(() => {
+    //     console.log(localStorage.getItem('email'),  localStorage.getItem('type'))
+    // function logginDecider(){
+    //  if(email){
+    //      if(type === 'freelancer'){
+    //          gotoJobsScreen('')
+    //      }
+    //      else{
+    //         setCurrentPage(<Home />)
+    //      }
+    //  }
+    //  else{
+    //     setCurrentPage(<Home />)
+    //  }
+    // }
+    //     logginDecider();
+    //   }, [email, type, gotoJobsScreen]);
+
 function loginHandler(value){
-    console.log(email, type)
+    setLoad(true);
     if(value === 'login'){
         setCurrentPage(<Login type={'login'} setValue={e => changeEmail(e)} />);
     }
     else if(value === 'logout'){
         setHome(false);
         setEmail('');
+        localStorage.setItem('email', '');
+        localStorage.setItem('type', '');
         setCurrentPage(<Home /> )
     }
     else if(value === 'profile'){
-        console.log(email)
         setCurrentPage(<Profile email={email} type={type}/> )
     }
     else if(value === 'status'){
-        setCurrentPage(<Status email={email} setValue={e => setTemplate(e)} type={type}/> )
+
+        setCurrentPage(<Status email={email} setValue={e => setTemplate2(e)} type={type}/> )
     }
     else if(value === 'update-profile'){
         setCurrentPage(<UpdateProfile email={email} type={type} setValue={e => gotoJobsScreen(e)}/>)
     }
-    else if(value === 'home'){
+    else if(value === 'home'){  
         if(inHome === true){
-        setCurrentPage(<AllJobs email={email} setTemplate={e => templateChanger(e)}/> )
+            if(type === 'freelancer'){
+                setCurrentPage(<AllJobs email={email} setTemplate={e => templateChanger(e)}/> )
+            }
+            else{
+                setCurrentPage(<ClientHome email={email} setTemplate={e => templateChanger(e)} />)
+            }
         }
         else{
             setCurrentPage(<Home /> )
@@ -55,7 +114,8 @@ function gotoJobsScreen(){
 }
 
 function changeEmail(e){
-    console.log(e);
+    localStorage.setItem('email', e.email);
+    localStorage.setItem('type', e.type);
     setType(e.type)
     setEmail(e.email);
     setHome(true);
@@ -77,13 +137,13 @@ function templateChanger(e){
 //     props.setValue(<AllJobs setTemplate={e => templateChanger(e)}/>)
 //   }
 
-function setTemplate(e){
+function setTemplate2(e){
     setHome(true);
     setCurrentPage(e)
 }
 
 return (
-<div >
+<div onLoad={e => logginHandler(e)}>
   { inHome ? <LoggedInHeader setlogin={e => loginHandler(e)}/> : <Header login={inHome} setlogin={e => loginHandler(e)}/>}
     
 

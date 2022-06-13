@@ -2,7 +2,7 @@ import './applied.css';
 // import { useState } from 'react';
 import PostJobs from './Postjob.js';
 import './styles.css';
-
+import land2 from './land2.jpg';
 function ClientHome(props) {
 //   const [project, setProject] = useState({cover_letter:'',duration:'',amount:'' });
 
@@ -21,7 +21,8 @@ function postJob(e){
         <div className="row justify-content-center">
         <div className="card mt-3 eventcard fourty-width" >
           <h5>Have your work done by great minds with great skills !!</h5>
-          <img src="images/client home img.png" className="card-img-top" alt="..."   />
+          <img src={land2}  className="card-img-top" alt="..."   />
+          <br />
           <div className="text-center">
               <a href="#/" role="button" className="btn btn-outline-danger rounded-pill" onClick={e => postJob(e)}><b>+ Create Job</b></a>
           </div>

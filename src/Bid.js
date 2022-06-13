@@ -18,11 +18,9 @@ function Bid(props) {
   }
 
   useEffect(() => {
-    console.log(props,'prop')
     axios.get(`https://cfc-restapi.herokuapp.com/get_freelancer_by_mail_id/${props.email.mail}`, {
         headers: headers
       }).then((response) => {
-        console.log(response)
         if(response){
           setUser(response.data)
 
@@ -40,7 +38,7 @@ function Bid(props) {
 
 
   function bidded(e){
-    console.log(user)
+    console.log(incominObject, user)
     let object = {
       "work_id": incominObject._id,
       "client_id": incominObject.client_id,
@@ -52,12 +50,11 @@ function Bid(props) {
       axios.post(`https://cfc-restapi.herokuapp.com/create_proposal`, object, {
       headers: headers
     }).then((response) => {
-        console.log(response.data,'data')
         // props.setmail(obj)
         setTemplate('submit')
       // 
     },(err)=> {
-      alert("Incorrect E-mail");
+      alert("Error Occoured Try Again in Somewtime");
        console.log(err)
     })
 

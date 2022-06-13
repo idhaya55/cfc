@@ -16,10 +16,9 @@ function UpdateProfile(params) {
         if(params.type === 'freelancer'){
           // /{client_id}/idhaya2/1234567891/fhggfdfb/12-02-1999/xffvb/xdv/gn?freelancer_id=10824184-5b53-40a6-945c-9a4f2b47e612
          
-        axios.put(`https://cfc-restapi.herokuapp.com/update_freelancer_profile/client_id/${value.name}/${value.phone_number}/${value.location}/${value.dob}/${value.charges}/${value.skills}/gn?freelancer_id=${value.client_id}`, {
+        axios.put(`https://cfc-restapi.herokuapp.com/update_freelancer_profile/client_id/${value.name}/${value.phone_number}/${value.location || 'not'}/${value.dob || 'not'}/${value.charges || 'not'}/${value.skills || 'not'}/gn?freelancer_id=${value.client_id}`, {
           headers: headers
         }).then((response) => {
-          console.log(response)
           params.setValue(<Home />)
           // if(response){
             
@@ -34,10 +33,9 @@ function UpdateProfile(params) {
         
       }
       else{
-        axios.put(`https://cfc-restapi.herokuapp.com/update_client_profile/${value.client_id}/${value.name}/${value.phone_number}/${value.location}/${value.dob}/${value.charges}/${value.skills}`, {
+        axios.put(`https://cfc-restapi.herokuapp.com/update_client_profile/${value.client_id}/${value.name}/${value.phone_number}/${value.location || 'not'}/${value.dob || 'not'}/${value.charges || 'not'}/${value.skills || 'not'}`, {
           headers: headers
         }).then((response) => {
-          console.log(response)
           params.setValue(<Home />)
           // if(response){
             
@@ -74,8 +72,7 @@ function UpdateProfile(params) {
           headers: headers
         }).then((response) => {
           if(response){
-              setValue({mail_id:response.data['mail_id'],client_id:response.data['_id'],name:response.data['username'],phone_number:response.data['mobile'],email:response.data['mail_id'],dob:response.data['dob'],skills:response.data['skills'] || '',charges:response.data['rate'] || '',location:response.data['address'] || '',profile:response.data['profile_picture']})
-
+              setValue({mail_id:response.data['mail_id'],client_id:response.data['_id'],name:response.data['username'],phone_number:response.data['mobile'],email:response.data['mail_id'],dob:response.data['dob'],skills:response.data['skills'] || '',charges:response.data['description'] || '',location:response.data['address'] || '',profile:response.data['profile_picture']})
           }
           
           // 
@@ -88,8 +85,7 @@ function UpdateProfile(params) {
           headers: headers
         }).then((response) => {
           if(response){
-              setValue({mail_id:response.data['mail_id'],client_id:response.data['_id'],name:response.data['username'],phone_number:response.data['mobile'],email:response.data['mail_id'],dob:response.data['dob'],skills:response.data['skills'] || '',charges:response.data['rate'] || '',location:response.data['address'] || '',profile:response.data['profile_picture']})
-
+              setValue({mail_id:response.data['mail_id'],client_id:response.data['_id'],name:response.data['username'],phone_number:response.data['mobile'],email:response.data['mail_id'],dob:response.data['dob'],skills:response.data['skills'] || '',charges:response.data['description'] || '',location:response.data['address'] || '',profile:response.data['profile_picture']})
           }
           
           // 
@@ -129,7 +125,7 @@ function UpdateProfile(params) {
                   
                   <div className="form-group update-wrapper" > 
                     <label for="exampleFormControlTextarea1"></label> 
-                    <input type="text" className="form-control semi-rounded" id="exampleFormControlTextarea1"  value={value.skills}  onChange={(e) => setValue({mail_id:value.mail_id,client_id:value.client_id,name:value.name,email:value.email,phone_number:value.phone_number, dob:value.dob,location:value.location,charges:value.charges,skills:e.target.value,profile:value.profile})}/></div>
+                    <input type="text" className="form-control semi-rounded" id="exampleFormControlTextarea1"  value={value.skills  === 'not' ? '' : value.skills }  onChange={(e) => setValue({mail_id:value.mail_id,client_id:value.client_id,name:value.name,email:value.email,phone_number:value.phone_number, dob:value.dob,location:value.location,charges:value.charges,skills:e.target.value,profile:value.profile})}/></div>
                     <br/>
                     <button className="btn btn-outline-danger btn-md me-md-4 rounded-pill right-div" type="button" onClick={e => setValue({mail_id:value.mail_id,client_id:value.client_id,name:value.name,email:value.email,phone_number:value.phone_number, dob:value.dob,location:value.location,charges:value.charges,skills:'',profile:value.profile})}><b>Clear</b></button>
                   
@@ -158,15 +154,15 @@ function UpdateProfile(params) {
                   <div className="form-outline form-white mb-4">
                     <label className="form-label" for="typeDOBX">DOB</label>
                  
-                  <input type="date"  className="form-control cfcprimary bid-rounded" required  value={value.dob}  onChange={(e) => setValue({mail_id:value.mail_id,client_id:value.client_id,name:value.name,email:value.email,phone_number:value.phone_number, dob:e.target.value,location:value.location,charges:value.charges,skills:value.skills,profile:value.profile})}/>
+                  <input type="date"  className="form-control cfcprimary bid-rounded" required  value={value.dob === 'not' ? '' : value.dob}  onChange={(e) => setValue({mail_id:value.mail_id,client_id:value.client_id,name:value.name,email:value.email,phone_number:value.phone_number, dob:e.target.value,location:value.location,charges:value.charges,skills:value.skills,profile:value.profile})}/>
                 </div>
                 <div className="form-outline form-white mb-4">
                   <label className="form-label" for="typeArea/LocationX">Area/Location</label>
-                <input type="Area/Location" id="typeArea/LocationX" className="form-control form-control-lg bid-rounded"   value={value.location}  onChange={(e) => setValue({mail_id:value.mail_id,client_id:value.client_id,name:value.name,email:value.email,phone_number:value.phone_number, dob:value.dob,location:e.target.value,charges:value.charges,skills:value.skills,profile:value.profile})}/>
+                <input type="Area/Location" id="typeArea/LocationX" className="form-control form-control-lg bid-rounded"   value={value.location === 'not' ? '' : value.location}  onChange={(e) => setValue({mail_id:value.mail_id,client_id:value.client_id,name:value.name,email:value.email,phone_number:value.phone_number, dob:value.dob,location:e.target.value,charges:value.charges,skills:value.skills,profile:value.profile})}/>
                 </div>
                 <div className="form-outline form-white mb-4">
                   <label className="form-label" for="typeCharges/hourX">Charges per hour</label>
-                <input type="Charges/hour" id="typeCharges/hourX" className="form-control form-control-lg bid-rounded"   value={value.charges}  onChange={(e) => setValue({mail_id:value.mail_id,client_id:value.client_id,name:value.name,email:value.email,phone_number:value.phone_number, dob:value.dob,location:value.location,charges:e.target.value,skills:value.skills,profile:value.profile})}/>
+                <input type="Charges/hour" id="typeCharges/hourX" className="form-control form-control-lg bid-rounded"   value={value.charges  === 'not' ? '' : value.charges}  onChange={(e) => setValue({mail_id:value.mail_id,client_id:value.client_id,name:value.name,email:value.email,phone_number:value.phone_number, dob:value.dob,location:value.location,charges:e.target.value,skills:value.skills,profile:value.profile})}/>
               </div>
                      </form>
             </div>
