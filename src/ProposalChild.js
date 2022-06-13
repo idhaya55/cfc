@@ -85,9 +85,15 @@ function ProposalChild(params) {
 <div className="col-md-10 ">
     <div className="card mb-4  box " >
         <div className="card-body ">
+        <div className="row">
+        <div className="col-md-9">
             <h5 className="card-title cfcprimary">{user.name}</h5>
             <p className="card-text ">{project.bid_description}</p>
-            <div className="row">
+            
+            </div>
+            <div className="col-md-3  d-flex justify-content-between align-items-center">
+                      <button type="button" className="btn btn-outline-danger rounded-pill " onClick={e =>  proposalAccepted(e)}>Accept</button>
+                      </div>
               <div className="col-md-6">
                   <h6 className="card-title cfcprimary" > Bid Duration : <span className="fw-bold text-dark">{project.bid_duration}</span></h6>
               </div>
@@ -95,12 +101,14 @@ function ProposalChild(params) {
                   <h6 className="card-title cfcprimary" > Bid amount : <span className="fw-bold text-dark">{project.bid_amount}</span> </h6>  
               </div>
               
+              
+              
             </div>   
         </div>
+       
     </div>
-    <div className="col-md-3  d-flex justify-content-between align-items-center">
-                      <button type="button" className="btn btn-outline-danger rounded-pill " onClick={e =>  proposalAccepted(e)}>Accept</button>
-                      </div>
+    
+    
 </div>
 </div>
     )
