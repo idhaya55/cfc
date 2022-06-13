@@ -154,9 +154,17 @@ function Completed(props) {
             }
             else{
               return(
-                <div className='applied-wrapper'>
-                  <h1 className=" text-center cfcprimary">Currently You didn't Completed anything</h1>
-                </div>
+                <div class=" container justify-content-center align-items-center" id="prpjob"> 
+            <div class="card mb-4 eventcard " id="ept">
+                <div class="card-body ">
+                  <div class="row ">
+                    <div class="col-md-9 align-items-center">
+                      <h5 class="card-title cfcprimary">Currently You didn't Completed anything</h5>
+                    </div>
+                    </div>
+                  </div>
+              </div>
+          </div>
               )
             }
 }

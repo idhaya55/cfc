@@ -148,12 +148,12 @@ function Ongoing(params) {
             }
             else{
                 return(
-                  <div class=" container justify-content-center" id="prpjob"> 
+                  <div class=" container justify-content-center align-items-center" id="prpjob"> 
             <div class="card mb-4 eventcard " id="ept">
                 <div class="card-body ">
                   <div class="row ">
                     <div class="col-md-9">
-                      <h5 class="card-title cfcprimary">Currently You don't have Ongoing Projects</h5>
+                      <h5 class="card-title cfcprimary align-items-center">Currently You don't have Ongoing Projects</h5>
                     </div>
                     </div>
                   </div>

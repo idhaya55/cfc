@@ -180,12 +180,12 @@ else{
         );}
         else{
           return(
-            <div class=" container justify-content-center" id="prpjob"> 
+            <div class=" container justify-content-center align-items-center" id="prpjob"> 
             <div class="card mb-4 eventcard " id="ept">
                 <div class="card-body ">
                   <div class="row ">
                     <div class="col-md-9">
-                      <h5 class="card-title cfcprimary">Currently You didn't applied for anything</h5>
+                      <h5 class="card-title cfcprimary align-items-center">Currently You didn't applied for anything</h5>
                     </div>
                     </div>
                   </div>

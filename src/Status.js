@@ -49,7 +49,7 @@ function Status(props) {
                 </div>
                 <div className="content">
                     <div className="d-flex align-items-center justify-content-center mt-3 pb-3">
-                        <div className="btn btn-outline-danger"onClick={e => handleClick('applied')}>Applied Project<FaArrowRight />
+                        <div className="btn btn-outline-danger"onClick={e => handleClick('applied')}> { props.type === 'freelancer' ? 'Applied Project' : 'Created Projects'}<FaArrowRight />
                         </div>
                     </div>
                 </div>
