@@ -153,7 +153,7 @@ function Ongoing(params) {
                 <div class="card-body ">
                   <div class="row ">
                     <div class="col-md-9">
-                      <h5 class="card-title cfcprimary align-items-center">Currently You don't have Ongoing Projects</h5>
+                      <h5 class="card-title cfcprimary centered-align">Currently You don't have Ongoing Projects</h5>
                     </div>
                     </div>
                   </div>

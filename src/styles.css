@@ -68,7 +68,6 @@
 }
 .cfcprimary{
     border-radius: 30px;
-    text-align: center;
 }
 /* background: #e5e6e3; */
 .loggin-wrapper{
@@ -296,3 +295,4 @@ padding-left: 0%;
 .fourty-width{
     width: 40rem;
 }
+

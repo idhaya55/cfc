@@ -185,7 +185,7 @@ else{
                 <div class="card-body ">
                   <div class="row ">
                     <div class="col-md-9">
-                      <h5 class="card-title cfcprimary align-items-center">Currently You didn't applied for anything</h5>
+                      <h5 class="card-title cfcprimary centered-align">Currently You didn't applied for anything</h5>
                     </div>
                     </div>
                   </div>
