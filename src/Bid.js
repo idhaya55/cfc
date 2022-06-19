@@ -18,7 +18,8 @@ function Bid(props) {
   }
 
   useEffect(() => {
-    console.log(props,'rops')
+    console.log(typeof props.email,'rops')
+    if(typeof props.email == 'string'){
     axios.get(`https://cfc-restapi.herokuapp.com/get_freelancer_by_mail_id/${props.email}`, {
         headers: headers
       }).then((response) => {
@@ -27,11 +28,25 @@ function Bid(props) {
           setUser(response.data)
 
         }
-        
         // 
       },(err)=> {
          console.log(err)
       })
+    }
+    else{
+      axios.get(`https://cfc-restapi.herokuapp.com/get_freelancer_by_mail_id/${props.email.mail}`, {
+        headers: headers
+      }).then((response) => {
+        if(response){
+          console.log(response,'res')
+          setUser(response.data)
+
+        }
+        // 
+      },(err)=> {
+         console.log(err)
+      })
+    }
   })
 
   // useEffect(() => {

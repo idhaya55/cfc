@@ -46,25 +46,22 @@ else{
   axios.get(`https://cfc-restapi.herokuapp.com/get_active_work`, {
   headers: headers
 }).then((response) => {
+  console.log(response,'response')
   let arrayObj = [];
-  if(response.data.length > 0){
     let leap = response.data.filter((reap) => reap['client_id'] === user['_id']);
     
     arrayObj = leap.map(function(reap) {
       let  obj = { heading:reap.title,desc:reap.long_description,cost:reap.amount,bid:'',status:'Ongoing', work_id:reap['_id'], proposals: reap['proposals']}
       return obj
   })
-  let filterWork = arrayObj.filter((res) => res['proposals'].some((real) => user['applied_proposal'].includes(real)));
-  filterWork = filterWork.filter((res) => !user['ongoing_proposal'].some(r=> res['proposals'].includes(r)));
-  filterWork = filterWork.filter((res) => !user['finished_proposal'].some(r=> res['proposals'].includes(r)));
-
-  // let filterWork = arrayObj.filter((res) => !user['ongoing_work'].includes(res['_id']));
-  // filterWork = filterWork.filter((res) => !user['finished_work'].includes(res['_id']));
+  // let filterWork = arrayObj.filter((res) => res['proposals'].some((real) => user['posted_work'].includes(real)));
+  // filterWork = filterWork.filter((res) => !user['ongoing_work'].some(r=> res['proposals'].includes(r)));
+  // filterWork = filterWork.filter((res) => !user['finished_work'].some(r=> res['proposals'].includes(r)));
+  // console.log(filterWork,'filterWork',user)
+  let filterWork = arrayObj.filter((res) => !user['ongoing_work'].includes(res['work_id']));
+  filterWork = filterWork.filter((res) => !user['finished_work'].includes(res['work_id']));
     setProject(filterWork);
-}
-else{
 
-}
 },(err)=> {
   alert("Incorrect E-mail");
 })
