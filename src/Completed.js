@@ -74,6 +74,7 @@ function Completed(props) {
             return real
           }
         })
+        filtereddata = [...new Map(filtereddata.map(item => [JSON.stringify(item), item])).values()];
         setProject(filtereddata)
       },(err)=> {
          console.log(err)
