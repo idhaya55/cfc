@@ -99,7 +99,7 @@ function Bid(props) {
                     <div className="card  border-dark mt-3 rounded  p-5 bid-rounded space-wrapper" >
                         <div className="row justify-content-evenly">
                           <form>
-                            <h2 className="text-center cfcprimary">Youtube Video Creator/Content Manager</h2>
+                            <h2 className="text-center cfcprimary">{incominObject['title']}</h2>
                              <div className="form-outline mb-4">
                               <label className="form-label cfcprimary" for="form6Example7">Cover Letter</label> 
 

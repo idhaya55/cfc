@@ -1,14 +1,32 @@
+// import axios from 'axios';
 import  { useState } from 'react';
 import './styles.css';
 function ViewJobs(props) {
     let obj = props.obj;
     const[value, setValue] = useState(obj); 
 
+    // const getDetails = useCallback(() => {
+    //     const headers = {
+    //         'accept': 'application/json',
+    //         'Content-Type': 'application/json',
+        
+    //       } 
+    //     axios.get(`https://cfc-restapi.herokuapp.com/get_work_by_id/${value['_id']}`, {
+    //         headers: headers
+    //       }).then((response) => {
+    //   console.log(response,'res')
+    //       })
+    // },[value])
 
     function clickHandler(e) {
         console.log(value);
         setValue(value);
     }
+
+    // useEffect(() => {
+    //     console.log(props,'update')
+    //     getDetails()
+    // },[getDetails,props])
     return(
         <div>
         <div className=" justify-content-center " id="rightbar bar" >
