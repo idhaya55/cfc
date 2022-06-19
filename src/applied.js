@@ -69,7 +69,7 @@ else{
   },[params, user])
 
   function proposal(e){
-    params.changeValue(<Proposal obj={e.data} heading={e.heading} setValue={e => proposalFinshed(e)}/>);
+    params.changeValue(<Proposal obj={e.data} heading={e.heading} mail={params.mail} setValue={e => proposalFinshed(e)}/>);
   }
 
 

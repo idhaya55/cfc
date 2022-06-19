@@ -42,7 +42,7 @@ function Proposal(props) {
     
               {
                     profile.map(function useCallback(object, i){
-                      return <ProposalChild obj={object} proposed={e => proposalClicked(e)}/>;
+                      return <ProposalChild obj={object} email={props.mail} proposed={e => proposalClicked(e)}/>;
                     },[profile])
                   }
                 </div>

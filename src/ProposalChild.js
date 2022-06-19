@@ -19,10 +19,9 @@ function ProposalChild(params) {
           }  
 
           
-        axios.get(`https://cfc-restapi.herokuapp.com/get_freelancer_by_mail_id/${project.freelancer_id}`, {
+        axios.get(`https://cfc-restapi.herokuapp.com/get_freelancer_by_mail_id/${params.email}`, {
             headers: headers
           }).then((response) => {
-    
             if(response){
                 setUser({name:response.data['username'],number:response.data['mobile'],mail:response.data['mail_id'],dob:response.data['dob'],skills:response.data['skills'] || '',rate:response.data['rate'] || '',location:response.data['location'] || '',profile_picture:response.data['profile_picture']})
     
@@ -32,7 +31,7 @@ function ProposalChild(params) {
           },(err)=> {
              console.log(err)
           })
-      },[project.freelancer_id])
+      },[params])
 
       useEffect(() => {
         getUser();
