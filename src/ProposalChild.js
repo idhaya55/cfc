@@ -50,6 +50,7 @@ function ProposalChild(params) {
             headers: headers
           }).then((response) => {
            console.log(response,'on')
+           alert('Proposal Accepted')
           
         },(err)=> {
             console.log(err)

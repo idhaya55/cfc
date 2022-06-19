@@ -6,7 +6,7 @@ function ViewJobs(props) {
 
 
     function clickHandler(e) {
-        console.log(value)
+        console.log(value);
         setValue(value);
     }
     return(
@@ -17,7 +17,9 @@ function ViewJobs(props) {
                     <div className="card-body" onClick={e => clickHandler(e)}>
                         <h5 className="card-title">{value.title}</h5>
                         <p className="card-text">{value.short_description}</p>
-                            <p>Budget: <b>{value.amount}</b> <span className="right-div" ><i className="fas fa-map-marker-alt"></i> {value.location || ''}</span></p>
+                        <p> <b>Duration:</b>{value.duration}</p>
+                        <p> <b>Skills:</b> {value.skills_required.join(',')}</p>
+                        <p> <b>Budget:</b> {value.amount}<span className="right-div" ><i className="fas fa-map-marker-alt"></i> {value.location || ''}</span></p>
                         
                     </div>
                 </div>

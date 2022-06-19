@@ -46,6 +46,16 @@ function CompletedChild(params) {
       },[params])
 
 
+
+      function setObject(e, value){
+           if(value === 'comment'){
+            setformObject({comment:e.target.value,rating:formObject.rating})
+            
+           }
+           else{
+            setformObject( {comment:formObject.comment,rating:e})
+           }
+      }
       useEffect(() => {
         getRating();
       }, [getRating]);
@@ -67,7 +77,7 @@ function CompletedChild(params) {
                       </div>   
                   </div>
                   <div className="col-md-3  d-flex justify-content-between align-items-center" >
-                      <button type="button" className="btn btn-outline-danger rounded-pill " onClick={handleShow}>{project.rating ? 'View Review' : 'Add Review'}</button>
+                      <button type="button" className="btn btn-outline-danger rounded-pill " onClick={handleShow}>{project.rating === '0' && project.feedback === "Not Entered Yet"? 'Add Review' : 'View Review'}</button>
                       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Rating</Modal.Title>
@@ -76,7 +86,7 @@ function CompletedChild(params) {
         <StarRatings
           rating={formObject.rating}
           starRatedColor="blue"
-          changeRating={newRating => setformObject({comment:formObject.comment,rating:newRating})}
+          changeRating={newRating => setObject(newRating, 'rating')}
           numberOfStars={6}
           name='rating'
         />
@@ -96,7 +106,7 @@ function CompletedChild(params) {
               controlId="exampleForm.ControlTextarea1"
             >
               <Form.Label>Feedback Comment</Form.Label>
-              <Form.Control as="textarea" rows={3} value={formObject.comment} onChange={e => setformObject({comment:e.target.value,rating:formObject.rating})}/>
+              <Form.Control as="textarea" rows={3} value={formObject.comment} onChange={e => setObject(e, 'comment')}/>
             </Form.Group>
           </Form>
         </Modal.Body>
