@@ -29,8 +29,14 @@ function Status(props) {
     }
 
     function openProposal(params){
-        props.setValue(params)
+        if(params === 'ongoing'){
+            props.setValue(<Ongoing  mail={props.email} type={props.type}  changeValue={e => handleClick('completed')}/>)
+        }
+        else{
+        props.setValue(params);
+        }
     }
+
     function changeTemplate(e){
         console.log(e,'desc')
        props.setValue(<Description obj={e}/>)

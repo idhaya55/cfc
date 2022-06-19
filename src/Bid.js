@@ -18,10 +18,12 @@ function Bid(props) {
   }
 
   useEffect(() => {
-    axios.get(`https://cfc-restapi.herokuapp.com/get_freelancer_by_mail_id/${props.email.mail}`, {
+    console.log(props,'rops')
+    axios.get(`https://cfc-restapi.herokuapp.com/get_freelancer_by_mail_id/${props.email}`, {
         headers: headers
       }).then((response) => {
         if(response){
+          console.log(response,'res')
           setUser(response.data)
 
         }
@@ -42,7 +44,7 @@ function Bid(props) {
     let object = {
       "work_id": incominObject._id,
       "client_id": incominObject.client_id,
-      "freelancer_id": props.email.mail,
+      "freelancer_id": user['_id'],
       "bid_amount": project.amount,
       "bid_duration": project.duration,
       "bid_description": project.cover_letter

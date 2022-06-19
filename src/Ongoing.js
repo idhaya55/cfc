@@ -9,12 +9,11 @@ import Completed from './Completed';
 
 function Ongoing(params) {
   const type = params.type;
-    let object = []
     const [project, setProject] = useState([]);
     const [user, setUser]= useState({});
   
     function handleClick(){
-      setProject(object)
+      setProject(project)
     }
   
 
@@ -30,20 +29,22 @@ function Ongoing(params) {
         axios.get(`https://cfc-restapi.herokuapp.com/get_ongoing_work/${user['_id']}`, {
         headers: headers
       }).then((response) => {
-        let arrayObj =[];
-        if(response.data.length > 0){
+        console.log(response,'res')
+        let arrayObj = [];
+        // if(response.data.length > 0){
           arrayObj = response.data.map(function(reap) {
             let  obj = { heading:reap.title,desc:reap.long_description,cost:reap.amount,bid:reap['proposal_details'].bid_amount,status:'Ongoing', work_id:reap['_id'], proposal_details: reap['proposal_details']}
             return obj
         })
-        console.log(arrayObj)
-        let filterWork = arrayObj.filter((res) => !user['finished_proposal'].includes(res['work_id']));
+        console.log(arrayObj, 'prop', user)
+        // let filterWork = arrayObj.filter((res) => !user['finished_proposal'].some(r=> res['proposals'].includes(r)));
+         let filterWork = arrayObj.filter((res) => !user['finished_proposal'].includes(res.proposal_details['_id']));
           setProject(filterWork);
           console.log(filterWork,"ork']" )
-      }
-      else{
+      // }
+      // else{
   
-      }
+      // }
       })
      
   }
@@ -56,23 +57,24 @@ function Ongoing(params) {
     axios.get(`https://cfc-restapi.herokuapp.com/get_client_ongoing_work/${user['_id']}`, {
     headers: headers
   }).then((response) => {
+    console.log(response.data,'client work')
     let arrayObj =[];
     if(response.data.length > 0){
       arrayObj = response.data.map(function(reap) {
         let  obj = { heading:reap.title,desc:reap.long_description,cost:reap.amount,bid:reap['proposal_details'].bid_amount,status:'Ongoing', work_id:reap['_id'], proposal_details: reap['proposal_details']}
         return obj
     })
-    
+    console.log(arrayObj,"ork']",user )
     let filterWork = arrayObj.filter((res) => !user['finished_work'].includes(res['work_id']));
       setProject(filterWork);
-      console.log(filterWork,"ork']" )
+      
   }
   else{
 
   }
   })
   }
-    },[ type, user])
+    },[type, user])
 
 
     const getUser = useCallback(() => {

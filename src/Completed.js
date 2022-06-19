@@ -7,6 +7,8 @@ import React from 'react';
 // import Description from './Description';
 import CompletedChild from './CompletedChild';
 import axios from 'axios';
+// import uniqBy from "lodash/uniq";
+
 function Completed(props) {
   // let object = [];
 
@@ -81,6 +83,7 @@ function Completed(props) {
       axios.get(`https://cfc-restapi.herokuapp.com/get_client_finished_work/${user['_id']}`, {
         headers: headers
       }).then((response) => {
+        console.log(feedbacks,'feedbacks')
         let workWithRating = feedbacks.map((res) => res['work_id']);
         let filtereddata = response.data.map((real) => {
           if(workWithRating.includes(real['_id'])){
@@ -92,6 +95,9 @@ function Completed(props) {
             return real
           }
         })
+        // [...new Map(person.map(item => [JSON.stringify(item), item])).values()];
+        filtereddata = [...new Map(filtereddata.map(item => [JSON.stringify(item), item])).values()];
+        console.log(filtereddata)
         setProject(filtereddata)
       },(err)=> {
          console.log(err)

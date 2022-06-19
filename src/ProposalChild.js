@@ -49,8 +49,7 @@ function ProposalChild(params) {
         axios.put(`https://cfc-restapi.herokuapp.com/stop_accepting_work_proposal/${project['work_id']}`, {
             headers: headers
           }).then((response) => {
-
-            console.log(response)
+           console.log(response,'on')
           
         },(err)=> {
             console.log(err)

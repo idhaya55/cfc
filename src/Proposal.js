@@ -25,6 +25,9 @@ function Proposal(props) {
       }, [fetchBusinesses]);
 
 
+      function proposalClicked(){
+        props.setValue('ongoing')
+      }
       function handleClick(e){
           console.log(e)
       }
@@ -39,7 +42,7 @@ function Proposal(props) {
     
               {
                     profile.map(function useCallback(object, i){
-                      return <ProposalChild obj={object}/>;
+                      return <ProposalChild obj={object} proposed={e => proposalClicked(e)}/>;
                     },[profile])
                   }
                 </div>

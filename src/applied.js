@@ -30,9 +30,10 @@ function Applied(params) {
     headers: headers
   }).then((response) => {
        let filterWork = response.data.filter((res) => res['proposals'].some((real) => user['applied_proposal'].includes(real)));
-       filterWork = filterWork.filter((res) => !user['ongoing_proposal'].includes(res['_id']));
-       filterWork = filterWork.filter((res) => !user['finished_proposal'].includes(res['_id']));
-       console.log(filterWork,'filteredwork')
+       console.log(filterWork,'filteredwork', )
+       filterWork = filterWork.filter((res) => !user['ongoing_proposal'].some(r=> res['proposals'].includes(r)));
+       filterWork = filterWork.filter((res) => !user['finished_proposal'].some(r=> res['proposals'].includes(r)));
+       
        setProject(filterWork)
   })
 }
@@ -50,11 +51,15 @@ else{
     let leap = response.data.filter((reap) => reap['client_id'] === user['_id']);
     
     arrayObj = leap.map(function(reap) {
-      let  obj = { heading:reap.title,desc:reap.long_description,cost:reap.amount,bid:'',status:'Ongoing', work_id:reap['_id']}
+      let  obj = { heading:reap.title,desc:reap.long_description,cost:reap.amount,bid:'',status:'Ongoing', work_id:reap['_id'], proposals: reap['proposals']}
       return obj
   })
-  let filterWork = arrayObj.filter((res) => !user['ongoing_work'].includes(res['_id']));
-  filterWork = filterWork.filter((res) => !user['finished_work'].includes(res['_id']));
+  let filterWork = arrayObj.filter((res) => res['proposals'].some((real) => user['applied_proposal'].includes(real)));
+  filterWork = filterWork.filter((res) => !user['ongoing_proposal'].some(r=> res['proposals'].includes(r)));
+  filterWork = filterWork.filter((res) => !user['finished_proposal'].some(r=> res['proposals'].includes(r)));
+
+  // let filterWork = arrayObj.filter((res) => !user['ongoing_work'].includes(res['_id']));
+  // filterWork = filterWork.filter((res) => !user['finished_work'].includes(res['_id']));
     setProject(filterWork);
 }
 else{
@@ -67,9 +72,13 @@ else{
   },[params, user])
 
   function proposal(e){
-    params.changeValue(<Proposal obj={e.data} heading={e.heading}/>);
+    params.changeValue(<Proposal obj={e.data} heading={e.heading} setValue={e => proposalFinshed(e)}/>);
   }
 
+
+  function proposalFinshed(e){
+    params.changeValue('ongoing');
+  }
 
   const fetchBusinesses = useCallback(() => {
 
@@ -112,6 +121,7 @@ else{
 
 
   if(project.length > 0){
+    console.log(project,'pro')
     return (
         <div classNameName='applied-wrapper'>
         <h4 className=" text-center cfcprimary" > My Status </h4>

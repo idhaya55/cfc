@@ -58,3 +58,10 @@
     align-items: center;
     justify-content: center;
 }
+
+.all-jobs{
+    position: absolute;
+    right: 10px;
+    top: 103px;
+    border: 1px solid #efefef;
+}

@@ -2,8 +2,14 @@ import { useEffect, useState } from 'react';
 import AllJobsChild from './AllJobsChild';
 import Bid from './Bid';
 import ViewJobs from './ViewJobs'
-import './AllJobs.css'
+import './AllJobs.css';
+import './styles.css';
 import axios from 'axios';
+import config from "./config.js";
+import MessageParser from "./MessageParser";
+import ActionProvider from "./ActionProvider";
+import Chatbot from 'react-chatbot-kit';
+
 function AllJobs(params) {
 
     let object = [];
@@ -19,6 +25,7 @@ function AllJobs(params) {
   }
 
   useEffect(() => { 
+    console.log(params,'rops')
     axios.get(`https://cfc-restapi.herokuapp.com/get_active_work`, {
       headers: headers
     }).then((response) => {
@@ -96,18 +103,15 @@ function AllJobs(params) {
           return <AllJobsChild obj={object} key={i} setTemplate={(e,value) => templateHandler(e, value)}/>;
           })
     }
-            {/* <div className="card border-secondary mb-3 eventcard">
-                <h5 className="card-header">Illustrator, Xd and Photoshop designer</h5>
-                <div className="card-body">
-                    <h5 className="card-title">Special title treatment</h5>
-                    <p className="card-text">Creating illustrator cards, then generating an animation in Xd, followed by
-                        converting it into
-                        a GIF in photoshop.</p>
-                        <p>Budget $100 <span style="float:right" ><i className="fas fa-map-marker-alt"></i> Nungambakkam</span></p>
-                    <button type="button" className="btn btn-danger rounded-pill">view job</button>
-                    <button type="button" className="btn btn-danger rounded-pill" style="float:right">Bid job</button>
-                </div>
-            </div> */}
+    <div className='all-jobs'>
+    <Chatbot
+            config={config}
+            messageParser={MessageParser}
+           actionProvider={ActionProvider}
+           />
+
+    </div>
+            
 
             
 {/* 
