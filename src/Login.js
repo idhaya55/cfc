@@ -28,17 +28,16 @@ function Login(props) {
   else{
       obj = <Register setmail={e => goBack(e)}/>
   }
-  let str = ''
   let [currentSelect, setCurrentSelect] = useState('login')
-  let [mail, setEmail] = useState(str);
-  let [type, setType] = useState(str);
+  let [mail, setEmail] = useState('');
+  let [type, setType] = useState('');
   let [login, setLogin] = useState(false);
   let [template, setTemplate] = useState(obj);
   
   function templateChanger(e){
-    console.log(e)
+    console.log(e, mail, type)
     if(e === 'back'){
-      props.setValue({template:<AllJobs email={e} setTemplate={e => templateChanger(e)}/>, email:mail, type:type})
+      props.setValue({template:<AllJobs email={mail} setTemplate={e => templateChanger(e)}/>, email:mail, type:type})
     }
     else{
       props.setValue({template:e,email:mail})
@@ -54,6 +53,7 @@ function Login(props) {
   }
 }
   function goBack(emailValue){
+    console.log(emailValue,'email')
     setType(emailValue.type)
     setEmail(emailValue)
     mail = emailValue.mail;

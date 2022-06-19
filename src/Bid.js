@@ -1,5 +1,5 @@
 import './applied.css';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import './styles.css';
 import axios from 'axios';
 
@@ -17,7 +17,11 @@ function Bid(props) {
    
   }
 
-  useEffect(() => {
+  const fetchBusinesses = useCallback(() => {
+    const headers = {
+      'accept': 'application/json',
+      'Content-Type': 'application/json',
+    }  
     console.log(typeof props.email,'rops')
     if(typeof props.email == 'string'){
     axios.get(`https://cfc-restapi.herokuapp.com/get_freelancer_by_mail_id/${props.email}`, {
@@ -40,18 +44,17 @@ function Bid(props) {
         if(response){
           console.log(response,'res')
           setUser(response.data)
-
         }
         // 
       },(err)=> {
          console.log(err)
       })
     }
-  })
+  },[props])
 
-  // useEffect(() => {
-  //   fetchBusinesses(props);
-  // }, [fetchBusinesses]);
+  useEffect(() => {
+    fetchBusinesses();
+  }, [fetchBusinesses]);
 
 
   function bidded(e){
@@ -69,6 +72,7 @@ function Bid(props) {
     }).then((response) => {
         // props.setmail(obj)
         setTemplate('submit')
+        console.log(props)
       // 
     },(err)=> {
       alert("Error Occoured Try Again in Somewtime");

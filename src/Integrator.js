@@ -70,6 +70,7 @@ function logginHandler(e){
     //   }, [email, type, gotoJobsScreen]);
 
 function loginHandler(value){
+    console.log('int',value,email,type)
     setLoad(true);
     if(value === 'login'){
         setCurrentPage(<Login type={'login'} setValue={e => changeEmail(e)} />);
@@ -86,7 +87,7 @@ function loginHandler(value){
     }
     else if(value === 'status'){
 
-        setCurrentPage(<Status email={email} setValue={e => setTemplate2(e)} type={type}/> )
+        setCurrentPage(<Status email={email}  setValue={e => setTemplate2(e)} type={type}/> )
     }
     else if(value === 'update-profile'){
         setCurrentPage(<UpdateProfile email={email} type={type} setValue={e => gotoJobsScreen(e)}/>)
@@ -114,15 +115,33 @@ function gotoJobsScreen(){
 }
 
 function changeEmail(e){
-    localStorage.setItem('email', e.email);
-    localStorage.setItem('type', e.type);
-    setType(e.type)
-    setEmail(e.email);
+    console.log(e,e.type||type,'type')
+    // localStorage.setItem('email',email);
+    if(e.email){
+        localStorage.setItem('email', e.email);
+        setEmail(e.email);
+    }
+    else{
+        localStorage.setItem('email', email);
+        setEmail(email);
+    }
+    if(e.type){
+      localStorage.setItem('type', e.type);
+      setType(e.type)
+      console.log('type i SpeechSynthesisErrorEvent', type)
+    }
+    else{
+        localStorage.setItem('type', type);
+        setType(type)
+        console.log('type i SpeechSynthesisErrorEvent', type)
+    }
+    
     setHome(true);
     setCurrentPage(e.template)
 }
 
 function templateChanger(e){
+    console.log(e,email,'email')
     if(e === 'back'){
         setCurrentPage(<AllJobs email={email} setTemplate={e => templateChanger(e)}/>)
     }
